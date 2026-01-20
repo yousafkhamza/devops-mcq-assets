@@ -1,136 +1,219 @@
+/***********************
+ * CONFIG
+ ***********************/
 const QUESTIONS_URL =
-  "https://raw.githubusercontent.com/yousafkhamza/devops-mcq-assets/main/questions.json";
+  "https://cdn.jsdelivr.net/gh/yousafkhamza/devops-mcq-assets@main/questions.json";
 
-const NEGATIVE = 0.25;
-const TIMER = 120;
+const QUESTION_TIME = 120;
+const NEGATIVE_MARK = 0.25;
 const MAX_ATTEMPTS = 3;
 
-let quiz = [], current = 0, score = 0, timer, timeLeft = TIMER;
-let answers = [];
-let qCount = 0;
+/***********************
+ * STATE
+ ***********************/
+let selectedQuestionCount = 0;
+let questions = [];
+let currentIndex = 0;
+let score = 0;
+let timer = null;
+let timeLeft = QUESTION_TIME;
+let userAnswers = [];
+let answered = false;
 
-/* RULE FLOW */
+/***********************
+ * FLOW
+ ***********************/
 function showRules(count) {
-  qCount = count;
+  selectedQuestionCount = count;
   hideAll();
   document.getElementById("rules").style.display = "block";
 }
 
-/* RATE LIMIT */
+/***********************
+ * RATE LIMIT
+ ***********************/
 function checkRateLimit() {
   const today = new Date().toDateString();
-  let a = JSON.parse(localStorage.getItem("attempts")) || { date: today, count: 0 };
+  let data = JSON.parse(localStorage.getItem("attempts")) || { date: today, count: 0 };
 
-  if (a.date !== today) a = { date: today, count: 0 };
-  if (a.count >= MAX_ATTEMPTS) {
-    alert("Daily attempt limit reached. Try tomorrow.");
+  if (data.date !== today) data = { date: today, count: 0 };
+  if (data.count >= MAX_ATTEMPTS) {
+    alert("Daily attempt limit reached. Try again tomorrow.");
     return false;
   }
-  a.count++;
-  localStorage.setItem("attempts", JSON.stringify(a));
+
+  data.count++;
+  localStorage.setItem("attempts", JSON.stringify(data));
   return true;
 }
 
-/* START */
+/***********************
+ * START
+ ***********************/
 function startQuiz() {
   if (!checkRateLimit()) return;
-  antiCheat();
 
+  antiCheat();
   hideAll();
   document.getElementById("quiz").style.display = "block";
 
   fetch(QUESTIONS_URL)
-    .then(r => r.json())
+    .then(res => res.json())
     .then(data => {
-      quiz = shuffle(data).slice(0, qCount);
+      questions = shuffle(data)
+        .slice(0, selectedQuestionCount)
+        .map(q => shuffleOptions(q));
+
+      currentIndex = 0;
+      score = 0;
+      userAnswers = [];
+
       loadQuestion();
       startTimer();
     });
 }
 
-/* QUESTIONS */
+/***********************
+ * QUESTION
+ ***********************/
 function loadQuestion() {
   resetTimer();
-  const q = quiz[current];
-  document.getElementById("question").innerText = q.question;
-  const opt = document.getElementById("options");
-  opt.innerHTML = "";
+  answered = false;
 
-  q.options.forEach((o, i) => {
-    const b = document.createElement("button");
-    b.innerText = o;
-    b.onclick = () => answer(i);
-    opt.appendChild(b);
+  const q = questions[currentIndex];
+  document.getElementById("question").innerText = q.question;
+  document.getElementById("counter").innerText =
+    `${currentIndex + 1} / ${questions.length}`;
+
+  const optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML = "";
+
+  q.options.forEach((opt, index) => {
+    const btn = document.createElement("button");
+    btn.innerText = opt;
+    btn.onclick = () => answerQuestion(index, btn);
+    optionsDiv.appendChild(btn);
   });
 }
 
-function answer(i) {
-  answers.push(i);
-  score += (i === quiz[current].answer) ? 1 : -NEGATIVE;
-  next();
+function answerQuestion(index, btn) {
+  if (answered) return;
+  answered = true;
+
+  document.querySelectorAll("#options button").forEach(b => {
+    b.classList.add("disabled");
+  });
+
+  btn.classList.add("selected");
+  userAnswers.push(index);
+
+  score += index === questions[currentIndex].answer ? 1 : -NEGATIVE_MARK;
+
+  setTimeout(nextQuestion, 300);
 }
 
-function skip() {
-  answers.push(null);
-  next();
+function skipQuestion() {
+  userAnswers.push(null);
+  nextQuestion();
 }
 
-function next() {
-  current++;
-  current < quiz.length ? loadQuestion() : finish();
+function nextQuestion() {
+  currentIndex++;
+  currentIndex < questions.length ? loadQuestion() : finishQuiz();
 }
 
-function exitQuiz() { finish(); }
+function exitQuiz() {
+  finishQuiz();
+}
 
-/* TIMER */
+/***********************
+ * TIMER
+ ***********************/
 function startTimer() {
   timer = setInterval(() => {
     timeLeft--;
-    document.getElementById("timer").innerText = format(timeLeft);
-    if (timeLeft === 0) skip();
+
+    const timerEl = document.getElementById("timer");
+    timerEl.innerText = formatTime(timeLeft);
+    timerEl.classList.remove("warning", "danger");
+
+    if (timeLeft <= 10) timerEl.classList.add("danger");
+    else if (timeLeft <= 30) timerEl.classList.add("warning");
+
+    if (timeLeft === 0) {
+      userAnswers.push(null);
+      nextQuestion();
+    }
   }, 1000);
 }
 
 function resetTimer() {
   clearInterval(timer);
-  timeLeft = TIMER;
+  timeLeft = QUESTION_TIME;
+  const timerEl = document.getElementById("timer");
+  timerEl.classList.remove("warning", "danger");
+  timerEl.innerText = formatTime(timeLeft);
   startTimer();
 }
 
-/* FINISH + REVIEW */
-function finish() {
+/***********************
+ * FINISH
+ ***********************/
+function finishQuiz() {
   clearInterval(timer);
   hideAll();
-  const percent = Math.max(0, (score / quiz.length) * 100).toFixed(2);
 
-  let html = `<h2>Final Score</h2><h1>${percent}%</h1><hr>`;
-  quiz.forEach((q, i) => {
-    html += `<p><b>Q${i+1}. ${q.question}</b></p><ul>`;
-    q.options.forEach((o, idx) => {
-      let cls = idx === q.answer ? "correct" :
-                answers[i] === idx ? "wrong" :
-                answers[i] === null ? "skipped" : "";
-      html += `<li class="${cls}">${o}</li>`;
+  const percent = Math.max(0, (score / questions.length) * 100).toFixed(2);
+  let html = `<h2>Final Result</h2><h1>${percent}%</h1><hr>`;
+
+  questions.forEach((q, i) => {
+    html += `<p><b>Q${i + 1}. ${q.question}</b></p><ul>`;
+    q.options.forEach((opt, idx) => {
+      let cls = idx === q.answer ? "correct"
+        : userAnswers[i] === idx ? "wrong"
+        : userAnswers[i] === null ? "skipped" : "";
+      html += `<li class="${cls}">${opt}</li>`;
     });
     html += "</ul><hr>";
   });
+
   document.getElementById("result").innerHTML = html;
   document.getElementById("result").style.display = "block";
 }
 
-/* ANTI-CHEAT */
+/***********************
+ * ANTI-CHEAT
+ ***********************/
 function antiCheat() {
   document.addEventListener("contextmenu", e => e.preventDefault());
-  document.addEventListener("visibilitychange", () => document.hidden && finish());
+  document.addEventListener("visibilitychange", () => document.hidden && finishQuiz());
   document.addEventListener("keydown", e => {
-    if (e.key === "F12" || (e.ctrlKey && e.shiftKey)) finish();
+    if (e.key === "F12" || (e.ctrlKey && e.shiftKey)) finishQuiz();
   });
 }
 
-/* HELPERS */
+/***********************
+ * HELPERS
+ ***********************/
 function hideAll() {
-  ["setup","rules","quiz","result"].forEach(id =>
-    document.getElementById(id).style.display = "none");
+  ["setup", "rules", "quiz", "result"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
+  });
 }
-function shuffle(a){return a.sort(()=>Math.random()-0.5);}
-function format(s){return `${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`;}
+
+function shuffle(arr) {
+  return arr.sort(() => Math.random() - 0.5);
+}
+
+function shuffleOptions(q) {
+  const correct = q.options[q.answer];
+  const shuffled = shuffle([...q.options]);
+  q.options = shuffled;
+  q.answer = shuffled.indexOf(correct);
+  return q;
+}
+
+function formatTime(sec) {
+  return `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")}`;
+}

@@ -1,57 +1,320 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>DevOps MCQ Test</title>
+
+<!-- SEO + Mobile -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description"
+ content="DevOps MCQ Questions by Yousaf Hamza. Practice DevOps, AWS, Docker, Kubernetes, Linux interview questions with timer-based exam mode.">
+
+<title>DevOps MCQ Questions by Yousaf Hamza</title>
+
+<!-- Favicon -->
+<link rel="icon" type="image/png"
+ href="https://cdn.jsdelivr.net/gh/yousafkhamza/devops-mcq-assets@main/favicon.png">
+
+<!-- Icons -->
+<link rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
 <style>
-body { font-family: Arial; background:#f4f6f8; }
-.container { max-width:800px; margin:auto; background:#fff; padding:20px; }
-button { padding:10px 15px; margin:5px; }
-.correct { color:green; font-weight:bold; }
-.wrong { color:red; }
-.skipped { color:gray; }
-#timer { float:right; font-weight:bold; }
+/* =========================
+   GLOBAL THEME
+========================= */
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --danger: #dc2626;
+  --danger-dark: #b91c1c;
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --text: #1f2937;
+  --border: #e5e7eb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Disable text selection (exam mode) */
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: var(--card);
+  padding: 32px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.section {
+  margin-top: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  margin: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+button.secondary {
+  background: #e5e7eb;
+  color: #111;
+}
+
+button.secondary:hover {
+  background: #d1d5db;
+}
+
+button.danger {
+  background: var(--danger);
+}
+
+button.danger:hover {
+  background: var(--danger-dark);
+}
+
+/* =========================
+   QUIZ HEADER
+========================= */
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#counter {
+  font-size: 14px;
+  color: #555;
+}
+
+#timer {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* Timer warnings */
+#timer.warning { color: #f59e0b; }
+#timer.danger { color: #dc2626; }
+
+/* =========================
+   QUIZ CONTENT
+========================= */
+.quiz-content {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#question {
+  margin-bottom: 24px;
+}
+
+/* OPTIONS */
+#options {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+#options button {
+  width: 100%;
+  background: #f9fafb;
+  color: #111;
+  border: 1px solid var(--border);
+  font-size: 16px;
+  padding: 14px;
+  text-align: center;
+}
+
+#options button:hover {
+  background: #eef2ff;
+}
+
+/* Selected / Disabled */
+#options button.selected {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+#options button.disabled {
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+/* ACTIONS */
+.quiz-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* RESULT COLORS */
+.correct { color: #16a34a; font-weight: 600; }
+.wrong { color: #dc2626; }
+.skipped { color: #6b7280; }
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+}
+
+footer a {
+  color: var(--primary);
+  margin: 0 10px;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: var(--primary-dark);
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 640px) {
+  .container {
+    margin: 16px;
+    padding: 20px;
+  }
+
+  .quiz-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .quiz-actions {
+    flex-direction: column;
+  }
+
+  .quiz-actions button {
+    width: 100%;
+  }
+}
 </style>
 </head>
 
 <body>
+
 <div class="container">
 
-<h1>DevOps MCQ Test</h1>
+<h1>DevOps MCQ Questions</h1>
+<div class="subtitle">by Yousaf Hamza</div>
 
-<div id="setup">
-  <p>Select number of questions</p>
+<!-- SETUP -->
+<div id="setup" class="section">
+  <p><b>Select number of questions</b></p>
   <button onclick="showRules(10)">10</button>
   <button onclick="showRules(30)">30</button>
   <button onclick="showRules(50)">50</button>
   <button onclick="showRules(100)">100</button>
 </div>
 
-<div id="rules" style="display:none;">
-  <h2>Rules</h2>
+<!-- RULES -->
+<div id="rules" class="section hidden">
+  <h2>Test Rules</h2>
   <ul>
-    <li>2 minutes per question</li>
-    <li>+1 correct, –0.25 wrong</li>
-    <li>No refresh / tab switch</li>
-    <li>3 attempts per day</li>
-    <li>Final score only at end</li>
+    <li>Each question has a time limit of 2 minutes</li>
+    <li>+1 mark for correct answer</li>
+    <li>-0.25 mark for wrong answer</li>
+    <li>No marks for skipped questions</li>
+    <li>Tab switching or refreshing ends the test</li>
+    <li>Maximum 3 attempts per day</li>
+    <li>Score shown only after completion</li>
   </ul>
-  <button onclick="startQuiz()">I Agree & Start</button>
+  <button onclick="startQuiz()">I Agree & Start Test</button>
 </div>
 
-<div id="quiz" style="display:none;">
-  <span id="timer">02:00</span>
-  <h3 id="question"></h3>
-  <div id="options"></div>
-  <button onclick="next()">Next</button>
-  <button onclick="skip()">Skip</button>
-  <button onclick="exitQuiz()">Exit</button>
+<!-- QUIZ -->
+<div id="quiz" class="section hidden">
+
+  <div class="quiz-header">
+    <div id="counter">1 / 10</div>
+    <div id="timer">02:00</div>
+  </div>
+
+  <div class="quiz-content">
+    <h3 id="question"></h3>
+    <div id="options"></div>
+
+    <div class="quiz-actions">
+      <button onclick="nextQuestion()">Next</button>
+      <button onclick="skipQuestion()" class="secondary">Skip</button>
+      <button onclick="exitQuiz()" class="danger">Exit</button>
+    </div>
+  </div>
 </div>
 
-<div id="result" style="display:none;"></div>
+<!-- RESULT -->
+<div id="result" class="section hidden"></div>
+
+<footer>
+  <p>© 2026 DevOps MCQ Questions by Yousaf Hamza</p>
+  <p>
+    <a href="https://www.linkedin.com/in/yousafhamza/" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <a href="https://yousafhamza.dev" target="_blank"><i class="fas fa-globe"></i></a>
+  </p>
+</footer>
 
 </div>
 
-<script src="https://raw.githubusercontent.com/yousafkhamza/devops-mcq-assets/main/quiz.js"></script>
+<script
+ src="https://cdn.jsdelivr.net/gh/yousafkhamza/devops-mcq-assets@main/quiz.js"
+ defer>
+</script>
+
 </body>
 </html>

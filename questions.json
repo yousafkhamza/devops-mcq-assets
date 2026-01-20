@@ -1,22 +1,26 @@
 [
   {
-    "question": "What does CI stand for in DevOps?",
-    "options": [
-      "Continuous Integration",
-      "Continuous Improvement",
-      "Central Integration",
-      "Code Integration"
-    ],
-    "answer": 0
-  },
-  {
-    "question": "Which tool is used for container orchestration?",
-    "options": ["Docker", "Jenkins", "Kubernetes", "Ansible"],
-    "answer": 2
-  },
-  {
+    "category": "AWS",
     "question": "Which AWS service is serverless?",
     "options": ["EC2", "Lambda", "EBS", "RDS"],
     "answer": 1
+  },
+  {
+    "category": "Docker",
+    "question": "Which command builds a Docker image?",
+    "options": ["docker run", "docker pull", "docker build", "docker exec"],
+    "answer": 2
+  },
+  {
+    "category": "Kubernetes",
+    "question": "Which object exposes Pods externally?",
+    "options": ["ConfigMap", "Service", "Secret", "Namespace"],
+    "answer": 1
+  },
+  {
+    "category": "Linux",
+    "question": "Which command checks disk usage?",
+    "options": ["df", "ps", "top", "uptime"],
+    "answer": 0
   }
 ]
