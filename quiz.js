@@ -17,8 +17,10 @@ let currentIndex = 0;
 let score = 0;
 let timer = null;
 let timeLeft = QUESTION_TIME;
+
 let userAnswers = [];
-let answered = false;
+let selectedAnswer = null;
+let isTimedOut = false;
 
 /***********************
  * FLOW
@@ -37,6 +39,7 @@ function checkRateLimit() {
   let data = JSON.parse(localStorage.getItem("attempts")) || { date: today, count: 0 };
 
   if (data.date !== today) data = { date: today, count: 0 };
+
   if (data.count >= MAX_ATTEMPTS) {
     alert("Daily attempt limit reached. Try again tomorrow.");
     return false;
@@ -48,7 +51,7 @@ function checkRateLimit() {
 }
 
 /***********************
- * START
+ * START QUIZ
  ***********************/
 function startQuiz() {
   if (!checkRateLimit()) return;
@@ -74,56 +77,105 @@ function startQuiz() {
 }
 
 /***********************
- * QUESTION
+ * LOAD QUESTION
  ***********************/
 function loadQuestion() {
   resetTimer();
-  answered = false;
+  selectedAnswer = null;
+  isTimedOut = false;
 
   const q = questions[currentIndex];
+
   document.getElementById("question").innerText = q.question;
   document.getElementById("counter").innerText =
     `${currentIndex + 1} / ${questions.length}`;
 
+  document.getElementById("timeoutMessage").style.display = "none";
+
   const optionsDiv = document.getElementById("options");
   optionsDiv.innerHTML = "";
 
-  q.options.forEach((opt, index) => {
+  q.options.forEach((opt, idx) => {
     const btn = document.createElement("button");
     btn.innerText = opt;
-    btn.onclick = () => answerQuestion(index, btn);
+    btn.onclick = () => selectOption(idx, btn);
     optionsDiv.appendChild(btn);
   });
+
+  enableNext(true);
 }
 
-function answerQuestion(index, btn) {
-  if (answered) return;
-  answered = true;
+/***********************
+ * SELECT OPTION
+ ***********************/
+function selectOption(index, button) {
+  if (isTimedOut) return;
+
+  selectedAnswer = index;
 
   document.querySelectorAll("#options button").forEach(b => {
-    b.classList.add("disabled");
+    b.classList.remove("selected");
   });
 
-  btn.classList.add("selected");
-  userAnswers.push(index);
-
-  score += index === questions[currentIndex].answer ? 1 : -NEGATIVE_MARK;
-
-  setTimeout(nextQuestion, 300);
+  button.classList.add("selected");
 }
 
+/***********************
+ * NEXT QUESTION
+ ***********************/
+function nextQuestion() {
+  if (isTimedOut) return;
+
+  recordAnswer();
+  moveForward();
+}
+
+/***********************
+ * SKIP QUESTION
+ ***********************/
 function skipQuestion() {
   userAnswers.push(null);
-  nextQuestion();
+  moveForward();
 }
 
-function nextQuestion() {
+/***********************
+ * RECORD ANSWER
+ ***********************/
+function recordAnswer() {
+  if (selectedAnswer === null) {
+    userAnswers.push(null);
+    return;
+  }
+
+  userAnswers.push(selectedAnswer);
+
+  if (selectedAnswer === questions[currentIndex].answer) {
+    score += 1;
+  } else {
+    score -= NEGATIVE_MARK;
+  }
+}
+
+/***********************
+ * MOVE FORWARD
+ ***********************/
+function moveForward() {
   currentIndex++;
-  currentIndex < questions.length ? loadQuestion() : finishQuiz();
+
+  if (currentIndex < questions.length) {
+    loadQuestion();
+  } else {
+    finishQuiz();
+  }
 }
 
+/***********************
+ * EXIT → THANK YOU
+ ***********************/
 function exitQuiz() {
-  finishQuiz();
+  clearInterval(timer);
+  hideAll();
+  document.getElementById("thankyou").style.display = "block";
 }
 
 /***********************
@@ -141,23 +193,37 @@ function startTimer() {
     else if (timeLeft <= 30) timerEl.classList.add("warning");
 
     if (timeLeft === 0) {
-      userAnswers.push(null);
-      nextQuestion();
+      handleTimeout();
     }
   }, 1000);
+}
+
+function handleTimeout() {
+  clearInterval(timer);
+  isTimedOut = true;
+
+  document.getElementById("timeoutMessage").style.display = "block";
+
+  document.querySelectorAll("#options button").forEach(b => {
+    b.classList.add("disabled");
+  });
+
+  enableNext(false);
 }
 
 function resetTimer() {
   clearInterval(timer);
   timeLeft = QUESTION_TIME;
+
   const timerEl = document.getElementById("timer");
   timerEl.classList.remove("warning", "danger");
   timerEl.innerText = formatTime(timeLeft);
+
   startTimer();
 }
 
 /***********************
- * FINISH
+ * FINISH QUIZ
  ***********************/
 function finishQuiz() {
   clearInterval(timer);
@@ -169,9 +235,10 @@ function finishQuiz() {
   questions.forEach((q, i) => {
     html += `<p><b>Q${i + 1}. ${q.question}</b></p><ul>`;
     q.options.forEach((opt, idx) => {
-      let cls = idx === q.answer ? "correct"
-        : userAnswers[i] === idx ? "wrong"
-        : userAnswers[i] === null ? "skipped" : "";
+      let cls =
+        idx === q.answer ? "correct" :
+        userAnswers[i] === idx ? "wrong" :
+        userAnswers[i] === null ? "skipped" : "";
       html += `<li class="${cls}">${opt}</li>`;
     });
     html += "</ul><hr>";
@@ -182,13 +249,21 @@ function finishQuiz() {
 }
 
 /***********************
+ * UI HELPERS
+ ***********************/
+function enableNext(enable) {
+  const nextBtn = document.querySelector(".quiz-actions button");
+  nextBtn.disabled = !enable;
+  nextBtn.style.opacity = enable ? "1" : "0.5";
+}
+
+/***********************
  * ANTI-CHEAT
  ***********************/
 function antiCheat() {
   document.addEventListener("contextmenu", e => e.preventDefault());
-  document.addEventListener("visibilitychange", () => document.hidden && finishQuiz());
-  document.addEventListener("keydown", e => {
-    if (e.key === "F12" || (e.ctrlKey && e.shiftKey)) finishQuiz();
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) exitQuiz();
   });
 }
 
@@ -196,7 +271,7 @@ function antiCheat() {
  * HELPERS
  ***********************/
 function hideAll() {
-  ["setup", "rules", "quiz", "result"].forEach(id => {
+  ["setup", "rules", "quiz", "result", "thankyou"].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.style.display = "none";
   });

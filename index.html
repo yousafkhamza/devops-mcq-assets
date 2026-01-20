@@ -6,7 +6,7 @@
 <!-- SEO + Mobile -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description"
- content="DevOps MCQ Questions by Yousaf Hamza. Practice DevOps, AWS, Docker, Kubernetes, Linux interview questions with timer-based exam mode.">
+ content="DevOps MCQ Questions by Yousaf Hamza. Practice DevOps, AWS, Docker, Kubernetes, Linux interview questions in a timed exam environment.">
 
 <title>DevOps MCQ Questions by Yousaf Hamza</title>
 
@@ -20,7 +20,7 @@
 
 <style>
 /* =========================
-   GLOBAL THEME
+   THEME
 ========================= */
 :root {
   --primary: #2563eb;
@@ -43,8 +43,6 @@ body {
   font-family: "Segoe UI", system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
-  -webkit-user-select: none;
-  -moz-user-select: none;
   user-select: none;
 }
 
@@ -116,6 +114,11 @@ button.danger:hover {
   background: var(--danger-dark);
 }
 
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* =========================
    QUIZ HEADER
 ========================= */
@@ -123,7 +126,7 @@ button.danger:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 #counter {
@@ -136,7 +139,6 @@ button.danger:hover {
   color: var(--primary);
 }
 
-/* Timer warnings */
 #timer.warning { color: #f59e0b; }
 #timer.danger { color: #dc2626; }
 
@@ -168,14 +170,12 @@ button.danger:hover {
   border: 1px solid var(--border);
   font-size: 16px;
   padding: 14px;
-  text-align: center;
 }
 
 #options button:hover {
   background: #eef2ff;
 }
 
-/* Selected / Disabled */
 #options button.selected {
   background: var(--primary);
   color: white;
@@ -192,6 +192,15 @@ button.danger:hover {
   display: flex;
   justify-content: center;
   gap: 16px;
+}
+
+/* TIMEOUT MESSAGE */
+#timeoutMessage {
+  display: none;
+  color: var(--danger);
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 /* RESULT COLORS */
@@ -267,11 +276,11 @@ footer a:hover {
 <div id="rules" class="section hidden">
   <h2>Test Rules</h2>
   <ul>
-    <li>Each question has a time limit of 2 minutes</li>
-    <li>+1 mark for correct answer</li>
-    <li>-0.25 mark for wrong answer</li>
+    <li>Each question has a 2-minute time limit</li>
+    <li>+1 for correct answers</li>
+    <li>-0.25 for wrong answers</li>
     <li>No marks for skipped questions</li>
-    <li>Tab switching or refreshing ends the test</li>
+    <li>On timeout, use Skip to continue</li>
     <li>Maximum 3 attempts per day</li>
     <li>Score shown only after completion</li>
   </ul>
@@ -285,6 +294,8 @@ footer a:hover {
     <div id="counter">1 / 10</div>
     <div id="timer">02:00</div>
   </div>
+
+  <p id="timeoutMessage">Time is up. Please use Skip to continue.</p>
 
   <div class="quiz-content">
     <h3 id="question"></h3>
@@ -301,16 +312,28 @@ footer a:hover {
 <!-- RESULT -->
 <div id="result" class="section hidden"></div>
 
+<!-- THANK YOU -->
+<div id="thankyou" class="section hidden" style="text-align:center;">
+  <h2>Thank You!</h2>
+  <p>You have exited the quiz.</p>
+  <p>DevOps MCQ Questions by Yousaf Hamza</p>
+</div>
+
 <footer>
   <p>© 2026 DevOps MCQ Questions by Yousaf Hamza</p>
   <p>
-    <a href="https://www.linkedin.com/in/yousafhamza/" target="_blank"><i class="fab fa-linkedin"></i></a>
-    <a href="https://yousafhamza.dev" target="_blank"><i class="fas fa-globe"></i></a>
+    <a href="https://www.linkedin.com/in/yousafkhamza/" target="_blank">
+      <i class="fab fa-linkedin"></i>
+    </a>
+    <a href="https://yousafkhamza.github.io" target="_blank">
+      <i class="fas fa-globe"></i>
+    </a>
   </p>
 </footer>
 
 </div>
 
+<!-- JS (GitHub via jsDelivr) -->
 <script
  src="https://cdn.jsdelivr.net/gh/yousafkhamza/devops-mcq-assets@main/quiz.js"
  defer>
