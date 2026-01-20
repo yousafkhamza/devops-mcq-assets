@@ -3,7 +3,7 @@ const QUESTIONS_URL =
 
 const QUESTION_TIME = 120;
 const NEGATIVE_MARK = 0.25;
-const MAX_ATTEMPTS = 5;
+const MAX_ATTEMPTS = 3;
 
 let selectedQuestionCount = 0;
 let questions = [];
