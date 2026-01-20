@@ -6,9 +6,9 @@
 <!-- SEO + Mobile -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description"
- content="DevOps MCQ Questions by Yousaf Hamza. Practice DevOps, AWS, Docker, Kubernetes, Linux interview questions in a timed exam environment.">
+ content="DevOps Certification Practice Quiz by Yousaf Hamza. Timed DevOps, AWS, Docker, Kubernetes and Linux MCQ quiz with professional exam experience.">
 
-<title>DevOps MCQ Questions by Yousaf Hamza</title>
+<title>DevOps Certification Practice Quiz | Yousaf Hamza</title>
 
 <!-- Favicon -->
 <link rel="icon" type="image/png"
@@ -19,239 +19,156 @@
  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
-/* =========================
-   THEME
-========================= */
 :root {
   --primary: #2563eb;
   --primary-dark: #1e40af;
   --danger: #dc2626;
-  --danger-dark: #b91c1c;
   --bg: #f5f7fb;
   --card: #ffffff;
   --text: #1f2937;
   --border: #e5e7eb;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
-/* Disable text selection (exam mode) */
 body {
   margin: 0;
-  font-family: "Segoe UI", system-ui, sans-serif;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
   background: var(--bg);
   color: var(--text);
   user-select: none;
 }
 
-/* =========================
-   LAYOUT
-========================= */
 .container {
-  max-width: 900px;
-  margin: 40px auto;
+  max-width: min(880px, 92vw);
+  margin: min(4vh, 32px) auto;
   background: var(--card);
-  padding: 32px;
+  padding: clamp(18px, 2.5vw, 28px);
   border-radius: 14px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
 
 h1 {
   text-align: center;
-  margin-bottom: 6px;
+  font-size: clamp(20px, 2.6vw, 26px);
+  margin-bottom: 4px;
 }
 
 .subtitle {
   text-align: center;
+  font-size: clamp(13px, 1.6vw, 15px);
   color: #555;
-  margin-bottom: 30px;
+  margin-bottom: 22px;
 }
 
-.section {
-  margin-top: 20px;
-}
+.section { margin-top: 16px; }
+.hidden { display: none; }
 
-.hidden {
-  display: none;
-}
-
-/* =========================
-   BUTTONS
-========================= */
+/* Buttons */
 button {
   background: var(--primary);
-  color: white;
+  color: #fff;
   border: none;
-  border-radius: 12px;
-  padding: 12px 20px;
-  margin: 6px;
-  font-size: 15px;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: clamp(13px, 1.4vw, 15px);
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-button:hover {
-  background: var(--primary-dark);
-  transform: translateY(-1px);
-}
+button:hover { background: var(--primary-dark); }
+button.secondary { background: #e5e7eb; color: #111; }
+button.danger { background: var(--danger); }
+button:disabled { opacity: .5; cursor: not-allowed; }
 
-button.secondary {
-  background: #e5e7eb;
-  color: #111;
-}
-
-button.secondary:hover {
-  background: #d1d5db;
-}
-
-button.danger {
-  background: var(--danger);
-}
-
-button.danger:hover {
-  background: var(--danger-dark);
-}
-
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* =========================
-   QUIZ HEADER
-========================= */
+/* Quiz header */
 .quiz-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-#counter {
   font-size: 14px;
-  color: #555;
-}
-
-#timer {
-  font-weight: 600;
-  color: var(--primary);
+  margin-bottom: 8px;
 }
 
 #timer.warning { color: #f59e0b; }
 #timer.danger { color: #dc2626; }
 
-/* =========================
-   QUIZ CONTENT
-========================= */
+/* Quiz content */
 .quiz-content {
-  max-width: 700px;
+  max-width: 680px;
   margin: 0 auto;
   text-align: center;
 }
 
 #question {
-  margin-bottom: 24px;
+  font-size: clamp(15px, 1.8vw, 18px);
+  margin-bottom: 14px;
 }
 
-/* OPTIONS */
 #options {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-bottom: 26px;
+  gap: 10px;
 }
 
 #options button {
-  width: 100%;
   background: #f9fafb;
-  color: #111;
   border: 1px solid var(--border);
-  font-size: 16px;
-  padding: 14px;
-}
-
-#options button:hover {
-  background: #eef2ff;
+  color: #111;
 }
 
 #options button.selected {
   background: var(--primary);
-  color: white;
-  border-color: var(--primary);
+  color: #fff;
 }
 
 #options button.disabled {
   pointer-events: none;
-  opacity: 0.75;
+  opacity: .7;
 }
 
-/* ACTIONS */
 .quiz-actions {
   display: flex;
   justify-content: center;
-  gap: 16px;
+  gap: 14px;
+  margin-top: 14px;
 }
 
-/* TIMEOUT MESSAGE */
 #timeoutMessage {
   display: none;
   color: var(--danger);
   font-weight: 600;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
-/* RESULT COLORS */
+/* Result */
+#result {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
 .correct { color: #16a34a; font-weight: 600; }
 .wrong { color: #dc2626; }
 .skipped { color: #6b7280; }
 
-/* =========================
-   FOOTER
-========================= */
+/* Footer */
 footer {
-  margin-top: 40px;
-  padding-top: 20px;
+  margin-top: 24px;
+  padding-top: 14px;
   border-top: 1px solid var(--border);
   text-align: center;
-  font-size: 14px;
+  font-size: 13px;
   color: #555;
 }
 
 footer a {
   color: var(--primary);
   margin: 0 10px;
-  font-size: 20px;
-  text-decoration: none;
+  font-size: 18px;
 }
 
-footer a:hover {
-  color: var(--primary-dark);
-}
-
-/* =========================
-   MOBILE
-========================= */
 @media (max-width: 640px) {
-  .container {
-    margin: 16px;
-    padding: 20px;
-  }
-
-  .quiz-header {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .quiz-actions {
-    flex-direction: column;
-  }
-
-  .quiz-actions button {
-    width: 100%;
-  }
+  .quiz-actions { flex-direction: column; }
+  .quiz-actions button { width: 100%; }
 }
 </style>
 </head>
@@ -260,7 +177,7 @@ footer a:hover {
 
 <div class="container">
 
-<h1>DevOps MCQ Questions</h1>
+<h1>DevOps Certification Practice Quiz</h1>
 <div class="subtitle">by Yousaf Hamza</div>
 
 <!-- SETUP -->
@@ -274,15 +191,13 @@ footer a:hover {
 
 <!-- RULES -->
 <div id="rules" class="section hidden">
-  <h2>Test Rules</h2>
+  <h3>Test Rules</h3>
   <ul>
-    <li>Each question has a 2-minute time limit</li>
-    <li>+1 for correct answers</li>
-    <li>-0.25 for wrong answers</li>
-    <li>No marks for skipped questions</li>
-    <li>On timeout, use Skip to continue</li>
-    <li>Maximum 3 attempts per day</li>
-    <li>Score shown only after completion</li>
+    <li>2 minutes per question</li>
+    <li>+1 correct, -0.25 wrong</li>
+    <li>On timeout, use Skip</li>
+    <li>3 attempts per day</li>
+    <li>Score shown at the end</li>
   </ul>
   <button onclick="startQuiz()">I Agree & Start Test</button>
 </div>
@@ -298,7 +213,7 @@ footer a:hover {
   <p id="timeoutMessage">Time is up. Please use Skip to continue.</p>
 
   <div class="quiz-content">
-    <h3 id="question"></h3>
+    <div id="question"></div>
     <div id="options"></div>
 
     <div class="quiz-actions">
@@ -309,35 +224,29 @@ footer a:hover {
   </div>
 </div>
 
-<!-- RESULT -->
 <div id="result" class="section hidden"></div>
 
-<!-- THANK YOU -->
 <div id="thankyou" class="section hidden" style="text-align:center;">
-  <h2>Thank You!</h2>
+  <h3>Thank You!</h3>
   <p>You have exited the quiz.</p>
-  <p>DevOps MCQ Questions by Yousaf Hamza</p>
 </div>
 
 <footer>
   <p>© 2026 DevOps MCQ Questions by Yousaf Hamza</p>
   <p>
-    <a href="https://www.linkedin.com/in/yousafkhamza/" target="_blank">
-      <i class="fab fa-linkedin"></i>
-    </a>
-    <a href="https://yousafkhamza.github.io" target="_blank">
-      <i class="fas fa-globe"></i>
-    </a>
+    <a href="https://www.linkedin.com/in/yousafhamza/" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <a href="https://yousafhamza.dev" target="_blank"><i class="fas fa-globe"></i></a>
   </p>
 </footer>
 
 </div>
 
-<!-- JS (GitHub via jsDelivr) -->
-<script
- src="https://cdn.jsdelivr.net/gh/yousafkhamza/devops-mcq-assets@main/quiz.js"
- defer>
-</script>
+<!-- Audio -->
+<audio id="warningSound" preload="auto">
+  <source src="https://cdn.jsdelivr.net/gh/yousafkhamza/devops-mcq-assets@main/beep.mp3" type="audio/mpeg">
+</audio>
+
+<script src="https://cdn.jsdelivr.net/gh/yousafkhamza/devops-mcq-assets@main/quiz.js?v=2026-01-07" defer></script>
 
 </body>
 </html>

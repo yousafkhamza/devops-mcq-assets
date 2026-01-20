@@ -1,16 +1,10 @@
-/***********************
- * CONFIG
- ***********************/
 const QUESTIONS_URL =
-  "https://cdn.jsdelivr.net/gh/yousafkhamza/devops-mcq-assets@main/questions.json";
+  "https://cdn.jsdelivr.net/gh/yousafkhamza/devops-mcq-assets@main/questions.json?v=2026-01-07";
 
 const QUESTION_TIME = 120;
 const NEGATIVE_MARK = 0.25;
 const MAX_ATTEMPTS = 3;
 
-/***********************
- * STATE
- ***********************/
 let selectedQuestionCount = 0;
 let questions = [];
 let currentIndex = 0;
@@ -21,27 +15,23 @@ let timeLeft = QUESTION_TIME;
 let userAnswers = [];
 let selectedAnswer = null;
 let isTimedOut = false;
+let warningPlayed = false;
 
-/***********************
- * FLOW
- ***********************/
+/* Setup */
 function showRules(count) {
   selectedQuestionCount = count;
   hideAll();
   document.getElementById("rules").style.display = "block";
 }
 
-/***********************
- * RATE LIMIT
- ***********************/
+/* Rate limit */
 function checkRateLimit() {
   const today = new Date().toDateString();
   let data = JSON.parse(localStorage.getItem("attempts")) || { date: today, count: 0 };
 
   if (data.date !== today) data = { date: today, count: 0 };
-
   if (data.count >= MAX_ATTEMPTS) {
-    alert("Daily attempt limit reached. Try again tomorrow.");
+    alert("Daily attempt limit reached.");
     return false;
   }
 
@@ -50,18 +40,18 @@ function checkRateLimit() {
   return true;
 }
 
-/***********************
- * START QUIZ
- ***********************/
+/* Start */
 function startQuiz() {
   if (!checkRateLimit()) return;
 
+  enableExamMode();
   antiCheat();
+
   hideAll();
   document.getElementById("quiz").style.display = "block";
 
   fetch(QUESTIONS_URL)
-    .then(res => res.json())
+    .then(r => r.json())
     .then(data => {
       questions = shuffle(data)
         .slice(0, selectedQuestionCount)
@@ -76,157 +66,118 @@ function startQuiz() {
     });
 }
 
-/***********************
- * LOAD QUESTION
- ***********************/
+/* Load */
 function loadQuestion() {
   resetTimer();
   selectedAnswer = null;
   isTimedOut = false;
+  warningPlayed = false;
+
+  document.getElementById("timeoutMessage").style.display = "none";
 
   const q = questions[currentIndex];
-
   document.getElementById("question").innerText = q.question;
   document.getElementById("counter").innerText =
     `${currentIndex + 1} / ${questions.length}`;
 
-  document.getElementById("timeoutMessage").style.display = "none";
+  const options = document.getElementById("options");
+  options.innerHTML = "";
 
-  const optionsDiv = document.getElementById("options");
-  optionsDiv.innerHTML = "";
-
-  q.options.forEach((opt, idx) => {
-    const btn = document.createElement("button");
-    btn.innerText = opt;
-    btn.onclick = () => selectOption(idx, btn);
-    optionsDiv.appendChild(btn);
+  q.options.forEach((opt, i) => {
+    const b = document.createElement("button");
+    b.innerText = opt;
+    b.onclick = () => selectOption(i, b);
+    options.appendChild(b);
   });
 
   enableNext(true);
 }
 
-/***********************
- * SELECT OPTION
- ***********************/
-function selectOption(index, button) {
+function selectOption(i, btn) {
   if (isTimedOut) return;
-
-  selectedAnswer = index;
-
-  document.querySelectorAll("#options button").forEach(b => {
-    b.classList.remove("selected");
-  });
-
-  button.classList.add("selected");
+  selectedAnswer = i;
+  document.querySelectorAll("#options button").forEach(b => b.classList.remove("selected"));
+  btn.classList.add("selected");
 }
 
-/***********************
- * NEXT QUESTION
- ***********************/
+/* Navigation */
 function nextQuestion() {
   if (isTimedOut) return;
-
   recordAnswer();
   moveForward();
 }
 
-/***********************
- * SKIP QUESTION
- ***********************/
 function skipQuestion() {
   userAnswers.push(null);
   moveForward();
 }
 
-/***********************
- * RECORD ANSWER
- ***********************/
 function recordAnswer() {
   if (selectedAnswer === null) {
     userAnswers.push(null);
     return;
   }
-
   userAnswers.push(selectedAnswer);
-
-  if (selectedAnswer === questions[currentIndex].answer) {
-    score += 1;
-  } else {
-    score -= NEGATIVE_MARK;
-  }
+  score += selectedAnswer === questions[currentIndex].answer ? 1 : -NEGATIVE_MARK;
 }
 
-/***********************
- * MOVE FORWARD
- ***********************/
 function moveForward() {
   currentIndex++;
-
-  if (currentIndex < questions.length) {
-    loadQuestion();
-  } else {
-    finishQuiz();
-  }
+  currentIndex < questions.length ? loadQuestion() : finishQuiz();
 }
 
-/***********************
- * EXIT → THANK YOU
- ***********************/
+/* Exit */
 function exitQuiz() {
   clearInterval(timer);
+  disableExamMode();
   hideAll();
   document.getElementById("thankyou").style.display = "block";
 }
 
-/***********************
- * TIMER
- ***********************/
+/* Timer */
 function startTimer() {
   timer = setInterval(() => {
-    timeLeft--;
-
-    const timerEl = document.getElementById("timer");
-    timerEl.innerText = formatTime(timeLeft);
-    timerEl.classList.remove("warning", "danger");
-
-    if (timeLeft <= 10) timerEl.classList.add("danger");
-    else if (timeLeft <= 30) timerEl.classList.add("warning");
-
-    if (timeLeft === 0) {
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      timeLeft = 0;
+      document.getElementById("timer").innerText = "0:00";
       handleTimeout();
+      return;
     }
+
+    timeLeft--;
+    const t = document.getElementById("timer");
+    t.innerText = formatTime(timeLeft);
+    t.classList.remove("warning", "danger");
+
+    if (timeLeft === 10 && !warningPlayed) {
+      playWarning();
+      warningPlayed = true;
+    }
+
+    if (timeLeft <= 10) t.classList.add("danger");
+    else if (timeLeft <= 30) t.classList.add("warning");
   }, 1000);
 }
 
 function handleTimeout() {
-  clearInterval(timer);
   isTimedOut = true;
-
   document.getElementById("timeoutMessage").style.display = "block";
-
-  document.querySelectorAll("#options button").forEach(b => {
-    b.classList.add("disabled");
-  });
-
+  document.querySelectorAll("#options button").forEach(b => b.classList.add("disabled"));
   enableNext(false);
 }
 
 function resetTimer() {
   clearInterval(timer);
   timeLeft = QUESTION_TIME;
-
-  const timerEl = document.getElementById("timer");
-  timerEl.classList.remove("warning", "danger");
-  timerEl.innerText = formatTime(timeLeft);
-
+  document.getElementById("timer").innerText = formatTime(timeLeft);
   startTimer();
 }
 
-/***********************
- * FINISH QUIZ
- ***********************/
+/* Result */
 function finishQuiz() {
   clearInterval(timer);
+  disableExamMode();
   hideAll();
 
   const percent = Math.max(0, (score / questions.length) * 100).toFixed(2);
@@ -234,12 +185,11 @@ function finishQuiz() {
 
   questions.forEach((q, i) => {
     html += `<p><b>Q${i + 1}. ${q.question}</b></p><ul>`;
-    q.options.forEach((opt, idx) => {
-      let cls =
-        idx === q.answer ? "correct" :
-        userAnswers[i] === idx ? "wrong" :
-        userAnswers[i] === null ? "skipped" : "";
-      html += `<li class="${cls}">${opt}</li>`;
+    q.options.forEach((o, j) => {
+      let c = j === q.answer ? "correct" :
+              userAnswers[i] === j ? "wrong" :
+              userAnswers[i] === null ? "skipped" : "";
+      html += `<li class="${c}">${o}</li>`;
     });
     html += "</ul><hr>";
   });
@@ -248,18 +198,29 @@ function finishQuiz() {
   document.getElementById("result").style.display = "block";
 }
 
-/***********************
- * UI HELPERS
- ***********************/
-function enableNext(enable) {
-  const nextBtn = document.querySelector(".quiz-actions button");
-  nextBtn.disabled = !enable;
-  nextBtn.style.opacity = enable ? "1" : "0.5";
+/* Audio */
+function playWarning() {
+  const a = document.getElementById("warningSound");
+  if (a) { a.currentTime = 0; a.play().catch(() => {}); }
 }
 
-/***********************
- * ANTI-CHEAT
- ***********************/
+/* Zoom lock */
+function enableExamMode() {
+  document.addEventListener("keydown", preventZoomKeys, { passive: false });
+  document.addEventListener("wheel", preventZoomWheel, { passive: false });
+}
+function disableExamMode() {
+  document.removeEventListener("keydown", preventZoomKeys);
+  document.removeEventListener("wheel", preventZoomWheel);
+}
+function preventZoomKeys(e) {
+  if ((e.ctrlKey || e.metaKey) && ["+", "-", "0", "="].includes(e.key)) e.preventDefault();
+}
+function preventZoomWheel(e) {
+  if (e.ctrlKey) e.preventDefault();
+}
+
+/* Anti-cheat */
 function antiCheat() {
   document.addEventListener("contextmenu", e => e.preventDefault());
   document.addEventListener("visibilitychange", () => {
@@ -267,28 +228,27 @@ function antiCheat() {
   });
 }
 
-/***********************
- * HELPERS
- ***********************/
+/* Helpers */
 function hideAll() {
-  ["setup", "rules", "quiz", "result", "thankyou"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.style.display = "none";
+  ["setup","rules","quiz","result","thankyou"].forEach(id => {
+    const e = document.getElementById(id);
+    if (e) e.style.display = "none";
   });
 }
 
-function shuffle(arr) {
-  return arr.sort(() => Math.random() - 0.5);
-}
+function shuffle(a) { return a.sort(() => Math.random() - 0.5); }
 
 function shuffleOptions(q) {
-  const correct = q.options[q.answer];
-  const shuffled = shuffle([...q.options]);
-  q.options = shuffled;
-  q.answer = shuffled.indexOf(correct);
+  const c = q.options[q.answer];
+  q.options = shuffle([...q.options]);
+  q.answer = q.options.indexOf(c);
   return q;
 }
 
-function formatTime(sec) {
-  return `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")}`;
+function formatTime(s) {
+  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+}
+
+function enableNext(v) {
+  document.querySelector(".quiz-actions button").disabled = !v;
 }
