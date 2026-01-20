@@ -1,5 +1,5 @@
 const QUESTIONS_URL =
-  "https://raw.githubusercontent.com/yousafkhamza/devops-mcq-assets/refs/heads/main/questions.json";
+  "https://cdn.jsdelivr.net/gh/yousafkhamza/devops-mcq-assets@main/questions.json?v=2026-01-07";
 
 const QUESTION_TIME = 120;
 const NEGATIVE_MARK = 0.25;
