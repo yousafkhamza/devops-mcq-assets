@@ -3,7 +3,7 @@ const QUESTIONS_URL =
 
 const QUESTION_TIME = 120;
 const NEGATIVE_MARK = 0.25;
-const MAX_ATTEMPTS = 3;
+const MAX_ATTEMPTS = 5;
 
 let selectedQuestionCount = 0;
 let questions = [];
@@ -17,14 +17,16 @@ let selectedAnswer = null;
 let isTimedOut = false;
 let warningPlayed = false;
 
-/* Setup */
+/* ---------------- SETUP ---------------- */
+
 function showRules(count) {
   selectedQuestionCount = count;
   hideAll();
   document.getElementById("rules").style.display = "block";
 }
 
-/* Rate limit */
+/* ---------------- RATE LIMIT ---------------- */
+
 function checkRateLimit() {
   const today = new Date().toDateString();
   let data = JSON.parse(localStorage.getItem("attempts")) || { date: today, count: 0 };
@@ -40,7 +42,8 @@ function checkRateLimit() {
   return true;
 }
 
-/* Start */
+/* ---------------- START QUIZ ---------------- */
+
 function startQuiz() {
   if (!checkRateLimit()) return;
 
@@ -53,8 +56,17 @@ function startQuiz() {
   fetch(QUESTIONS_URL)
     .then(r => r.json())
     .then(data => {
-      questions = shuffle(data)
-        .slice(0, selectedQuestionCount)
+      const totalAvailable = data.length;
+
+      // Cap selection to available questions
+      const finalCount = Math.min(selectedQuestionCount, totalAvailable);
+
+      // Rotate + shuffle full pool so all questions circulate over time
+      const pool = shuffle(rotatePool(data));
+
+      // Take only requested count
+      questions = pool
+        .slice(0, finalCount)
         .map(q => shuffleOptions(q));
 
       currentIndex = 0;
@@ -66,7 +78,8 @@ function startQuiz() {
     });
 }
 
-/* Load */
+/* ---------------- QUESTION LOADING ---------------- */
+
 function loadQuestion() {
   resetTimer();
   selectedAnswer = null;
@@ -100,7 +113,8 @@ function selectOption(i, btn) {
   btn.classList.add("selected");
 }
 
-/* Navigation */
+/* ---------------- NAVIGATION ---------------- */
+
 function nextQuestion() {
   if (isTimedOut) return;
   recordAnswer();
@@ -126,7 +140,8 @@ function moveForward() {
   currentIndex < questions.length ? loadQuestion() : finishQuiz();
 }
 
-/* Exit */
+/* ---------------- EXIT ---------------- */
+
 function exitQuiz() {
   clearInterval(timer);
   disableExamMode();
@@ -134,7 +149,8 @@ function exitQuiz() {
   document.getElementById("thankyou").style.display = "block";
 }
 
-/* Timer */
+/* ---------------- TIMER ---------------- */
+
 function startTimer() {
   timer = setInterval(() => {
     if (timeLeft <= 0) {
@@ -174,7 +190,8 @@ function resetTimer() {
   startTimer();
 }
 
-/* Result */
+/* ---------------- RESULT ---------------- */
+
 function finishQuiz() {
   clearInterval(timer);
   disableExamMode();
@@ -186,9 +203,10 @@ function finishQuiz() {
   questions.forEach((q, i) => {
     html += `<p><b>Q${i + 1}. ${q.question}</b></p><ul>`;
     q.options.forEach((o, j) => {
-      let c = j === q.answer ? "correct" :
-              userAnswers[i] === j ? "wrong" :
-              userAnswers[i] === null ? "skipped" : "";
+      let c =
+        j === q.answer ? "correct" :
+        userAnswers[i] === j ? "wrong" :
+        userAnswers[i] === null ? "skipped" : "";
       html += `<li class="${c}">${o}</li>`;
     });
     html += "</ul><hr>";
@@ -198,29 +216,35 @@ function finishQuiz() {
   document.getElementById("result").style.display = "block";
 }
 
-/* Audio */
+/* ---------------- AUDIO ---------------- */
+
 function playWarning() {
   const a = document.getElementById("warningSound");
   if (a) { a.currentTime = 0; a.play().catch(() => {}); }
 }
 
-/* Zoom lock */
+/* ---------------- EXAM MODE ---------------- */
+
 function enableExamMode() {
   document.addEventListener("keydown", preventZoomKeys, { passive: false });
   document.addEventListener("wheel", preventZoomWheel, { passive: false });
 }
+
 function disableExamMode() {
   document.removeEventListener("keydown", preventZoomKeys);
   document.removeEventListener("wheel", preventZoomWheel);
 }
+
 function preventZoomKeys(e) {
   if ((e.ctrlKey || e.metaKey) && ["+", "-", "0", "="].includes(e.key)) e.preventDefault();
 }
+
 function preventZoomWheel(e) {
   if (e.ctrlKey) e.preventDefault();
 }
 
-/* Anti-cheat */
+/* ---------------- ANTI-CHEAT ---------------- */
+
 function antiCheat() {
   document.addEventListener("contextmenu", e => e.preventDefault());
   document.addEventListener("visibilitychange", () => {
@@ -228,20 +252,43 @@ function antiCheat() {
   });
 }
 
-/* Helpers */
+/* ---------------- HELPERS ---------------- */
+
 function hideAll() {
-  ["setup","rules","quiz","result","thankyou"].forEach(id => {
+  ["setup", "rules", "quiz", "result", "thankyou"].forEach(id => {
     const e = document.getElementById(id);
     if (e) e.style.display = "none";
   });
 }
 
-function shuffle(a) { return a.sort(() => Math.random() - 0.5); }
+/* TRUE SHUFFLE (Fisher–Yates) */
+function shuffle(array) {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
 
+/* ROTATE POOL ACROSS ATTEMPTS */
+function rotatePool(data) {
+  const key = "questionOffset";
+  let offset = parseInt(localStorage.getItem(key) || "0", 10);
+
+  const rotated = data.slice(offset).concat(data.slice(0, offset));
+
+  offset = (offset + 10) % data.length;
+  localStorage.setItem(key, offset);
+
+  return rotated;
+}
+
+/* SHUFFLE OPTIONS SAFELY */
 function shuffleOptions(q) {
-  const c = q.options[q.answer];
-  q.options = shuffle([...q.options]);
-  q.answer = q.options.indexOf(c);
+  const correct = q.options[q.answer];
+  q.options = shuffle(q.options);
+  q.answer = q.options.indexOf(correct);
   return q;
 }
 
