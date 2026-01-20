@@ -1,0 +1,22 @@
+[
+  {
+    "question": "What does CI stand for in DevOps?",
+    "options": [
+      "Continuous Integration",
+      "Continuous Improvement",
+      "Central Integration",
+      "Code Integration"
+    ],
+    "answer": 0
+  },
+  {
+    "question": "Which tool is used for container orchestration?",
+    "options": ["Docker", "Jenkins", "Kubernetes", "Ansible"],
+    "answer": 2
+  },
+  {
+    "question": "Which AWS service is serverless?",
+    "options": ["EC2", "Lambda", "EBS", "RDS"],
+    "answer": 1
+  }
+]

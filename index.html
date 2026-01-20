@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>DevOps MCQ Test</title>
+<style>
+body { font-family: Arial; background:#f4f6f8; }
+.container { max-width:800px; margin:auto; background:#fff; padding:20px; }
+button { padding:10px 15px; margin:5px; }
+.correct { color:green; font-weight:bold; }
+.wrong { color:red; }
+.skipped { color:gray; }
+#timer { float:right; font-weight:bold; }
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h1>DevOps MCQ Test</h1>
+
+<div id="setup">
+  <p>Select number of questions</p>
+  <button onclick="showRules(10)">10</button>
+  <button onclick="showRules(30)">30</button>
+  <button onclick="showRules(50)">50</button>
+  <button onclick="showRules(100)">100</button>
+</div>
+
+<div id="rules" style="display:none;">
+  <h2>Rules</h2>
+  <ul>
+    <li>2 minutes per question</li>
+    <li>+1 correct, –0.25 wrong</li>
+    <li>No refresh / tab switch</li>
+    <li>3 attempts per day</li>
+    <li>Final score only at end</li>
+  </ul>
+  <button onclick="startQuiz()">I Agree & Start</button>
+</div>
+
+<div id="quiz" style="display:none;">
+  <span id="timer">02:00</span>
+  <h3 id="question"></h3>
+  <div id="options"></div>
+  <button onclick="next()">Next</button>
+  <button onclick="skip()">Skip</button>
+  <button onclick="exitQuiz()">Exit</button>
+</div>
+
+<div id="result" style="display:none;"></div>
+
+</div>
+
+<script src="https://raw.githubusercontent.com/yousafkhamza/devops-mcq-assets/main/quiz.js"></script>
+</body>
+</html>
