@@ -1,773 +1,1322 @@
 [
-  {
-    "category": "AWS",
-    "question": "Which AWS service allows you to run code without provisioning servers?",
-    "options": ["AWS Lambda", "EC2", "Elastic Beanstalk", "Lightsail"],
-    "answer": 0
-  },
-  {
-    "category": "Docker",
-    "question": "Which Docker command builds an image from a Dockerfile?",
-    "options": ["docker run", "docker build", "docker pull", "docker exec"],
-    "answer": 1
-  },
-  {
-    "category": "Kubernetes",
-    "question": "Which Kubernetes object manages stateless application replicas?",
-    "options": ["StatefulSet", "DaemonSet", "Deployment", "Job"],
-    "answer": 2
-  },
-  {
-    "category": "Linux",
-    "question": "Which command displays disk usage in human-readable format?",
-    "options": ["du", "mount", "lsblk", "df -h"],
-    "answer": 3
-  },
-  {
-    "category": "CI/CD",
-    "question": "What is the main goal of Continuous Integration?",
-    "options": [
-      "Deploy code to production",
-      "Merge code frequently",
-      "Provision infrastructure",
-      "Monitor applications"
-    ],
-    "answer": 1
-  },
-  {
-    "category": "AWS",
-    "question": "Which AWS service provides managed Kubernetes?",
-    "options": ["ECS", "EKS", "Fargate", "EC2"],
-    "answer": 1
-  },
-  {
-    "category": "Docker",
-    "question": "What is the purpose of a Docker volume?",
-    "options": [
-      "Improve container startup time",
-      "Persist container data",
-      "Increase image size",
-      "Expose container ports"
-    ],
-    "answer": 1
-  },
-  {
-    "category": "Kubernetes",
-    "question": "Which component stores Kubernetes cluster state?",
-    "options": ["kubelet", "kube-proxy", "etcd", "controller-manager"],
-    "answer": 2
-  },
-  {
-    "category": "Linux",
-    "question": "Which file stores user account information?",
-    "options": ["/etc/group", "/etc/shadow", "/etc/passwd", "/etc/profile"],
-    "answer": 2
-  },
-  {
-    "category": "Terraform",
-    "question": "What does `terraform plan` do?",
-    "options": [
-      "Applies infrastructure changes",
-      "Initializes providers",
-      "Shows execution plan",
-      "Destroys resources"
-    ],
-    "answer": 2
-  },
-
-  {
-    "category": "AWS",
-    "question": "Which AWS service is used for centralized logging?",
-    "options": ["CloudTrail", "CloudWatch", "X-Ray", "Config"],
-    "answer": 1
-  },
-  {
-    "category": "Docker",
-    "question": "Which Dockerfile instruction specifies the base image?",
-    "options": ["RUN", "FROM", "CMD", "ENTRYPOINT"],
-    "answer": 1
-  },
-  {
-    "category": "Kubernetes",
-    "question": "Which object exposes services externally via HTTP?",
-    "options": ["Service", "Ingress", "Pod", "ConfigMap"],
-    "answer": 1
-  },
-  {
-    "category": "Linux",
-    "question": "Which command changes file ownership?",
-    "options": ["chmod", "usermod", "chown", "passwd"],
-    "answer": 2
-  },
-  {
-    "category": "CI/CD",
-    "question": "Which tool is commonly used for CI pipelines?",
-    "options": ["Terraform", "Ansible", "Jenkins", "Prometheus"],
-    "answer": 2
-  },
-
-  {
-    "category": "AWS",
-    "question": "Which AWS service protects against DDoS attacks?",
-    "options": ["WAF", "Shield", "GuardDuty", "Inspector"],
-    "answer": 1
-  },
-  {
-    "category": "Networking",
-    "question": "Which protocol secures HTTP traffic?",
-    "options": ["FTP", "SMTP", "TLS", "SNMP"],
-    "answer": 2
-  },
-  {
-    "category": "Security",
-    "question": "What principle grants only required permissions?",
-    "options": [
-      "Zero Trust",
-      "Least privilege",
-      "Defense in depth",
-      "RBAC"
-    ],
-    "answer": 1
-  },
-  {
-    "category": "Monitoring",
-    "question": "Which tool is commonly used with Prometheus for visualization?",
-    "options": ["Kibana", "Grafana", "Datadog", "Nagios"],
-    "answer": 1
-  },
-  {
-    "category": "Git",
-    "question": "Which command creates a new Git branch?",
-    "options": ["git pull", "git branch", "git merge", "git rebase"],
-    "answer": 1
-  }
-,
-{
-  "category": "AWS",
-  "question": "Which AWS service provides object storage?",
-  "options": ["EBS", "S3", "EFS", "FSx"],
-  "answer": 1
-},
-{
-  "category": "Docker",
-  "question": "Which Docker command lists running containers?",
-  "options": ["docker ps", "docker images", "docker run", "docker inspect"],
-  "answer": 0
-},
-{
-  "category": "Kubernetes",
-  "question": "Which Kubernetes object runs a Pod on every node?",
-  "options": ["Deployment", "StatefulSet", "DaemonSet", "ReplicaSet"],
-  "answer": 2
-},
-{
-  "category": "Linux",
-  "question": "Which command shows running processes?",
-  "options": ["ps", "df", "uptime", "free"],
-  "answer": 0
-},
-{
-  "category": "CI/CD",
-  "question": "Which stage typically runs unit tests?",
-  "options": ["Build", "Test", "Deploy", "Release"],
-  "answer": 1
-},
-{
-  "category": "Terraform",
-  "question": "Which file stores Terraform state by default?",
-  "options": ["terraform.tfvars", "backend.tf", "terraform.state", "terraform.tfstate"],
-  "answer": 3
-},
-{
-  "category": "AWS",
-  "question": "Which AWS service is used for secrets management?",
-  "options": ["Parameter Store", "Secrets Manager", "KMS", "IAM"],
-  "answer": 1
-},
-{
-  "category": "Docker",
-  "question": "Which network driver allows containers to communicate on the same host?",
-  "options": ["overlay", "bridge", "macvlan", "none"],
-  "answer": 1
-},
-{
-  "category": "Kubernetes",
-  "question": "Which kubectl command shows Pod logs?",
-  "options": ["kubectl get logs", "kubectl describe pod", "kubectl logs", "kubectl exec"],
-  "answer": 2
-},
-{
-  "category": "Linux",
-  "question": "Which command displays memory usage?",
-  "options": ["top", "df", "free", "lsblk"],
-  "answer": 2
-},
-
-{
-  "category": "AWS",
-  "question": "Which AWS service enables infrastructure as code?",
-  "options": ["CloudFormation", "CodeDeploy", "Elastic Beanstalk", "OpsWorks"],
-  "answer": 0
-},
-{
-  "category": "Git",
-  "question": "Which command stages files for commit?",
-  "options": ["git add", "git commit", "git push", "git merge"],
-  "answer": 0
-},
-{
-  "category": "Security",
-  "question": "Which AWS service detects malicious activity?",
-  "options": ["Inspector", "GuardDuty", "Shield", "WAF"],
-  "answer": 1
-},
-{
-  "category": "Monitoring",
-  "question": "Which Prometheus component triggers alerts?",
-  "options": ["Exporter", "Alertmanager", "Grafana", "Node exporter"],
-  "answer": 1
-},
-{
-  "category": "Networking",
-  "question": "Which CIDR block represents a /24 network?",
-  "options": ["255.255.255.0", "255.255.0.0", "255.0.0.0", "255.255.255.255"],
-  "answer": 0
-},
-
-{
-  "category": "AWS",
-  "question": "Which AWS service provides managed container orchestration?",
-  "options": ["ECS", "EKS", "Fargate", "All of the above"],
-  "answer": 3
-},
-{
-  "category": "Docker",
-  "question": "Which instruction defines default container command?",
-  "options": ["CMD", "RUN", "FROM", "ENV"],
-  "answer": 0
-},
-{
-  "category": "Kubernetes",
-  "question": "Which object stores non-sensitive configuration?",
-  "options": ["Secret", "ConfigMap", "Volume", "Namespace"],
-  "answer": 1
-},
-{
-  "category": "Linux",
-  "question": "Which command changes file permissions?",
-  "options": ["chown", "chmod", "usermod", "passwd"],
-  "answer": 1
-},
-{
-  "category": "CI/CD",
-  "question": "Which CI/CD principle reduces integration issues?",
-  "options": ["Long-lived branches", "Frequent commits", "Manual testing", "Delayed merges"],
-  "answer": 1
-},
-
-{
-  "category": "Terraform",
-  "question": "Which command initializes a Terraform project?",
-  "options": ["terraform plan", "terraform apply", "terraform init", "terraform validate"],
-  "answer": 2
-},
-{
-  "category": "AWS",
-  "question": "Which AWS service provides managed relational databases?",
-  "options": ["DynamoDB", "RDS", "Aurora Serverless", "S3"],
-  "answer": 1
-},
-{
-  "category": "Docker",
-  "question": "Which command removes unused Docker objects?",
-  "options": ["docker rm", "docker prune", "docker clean", "docker delete"],
-  "answer": 1
-},
-{
-  "category": "Kubernetes",
-  "question": "Which component runs on every Kubernetes node?",
-  "options": ["kube-apiserver", "etcd", "kubelet", "controller-manager"],
-  "answer": 2
-},
-{
-  "category": "Linux",
-  "question": "Which command displays open network ports?",
-  "options": ["ifconfig", "netstat", "ls", "who"],
-  "answer": 1
-},
-
-{
-  "category": "Git",
-  "question": "Which command downloads changes without merging?",
-  "options": ["git fetch", "git pull", "git clone", "git push"],
-  "answer": 0
-},
-{
-  "category": "Security",
-  "question": "Which protocol encrypts data in transit?",
-  "options": ["HTTP", "FTP", "TLS", "SNMP"],
-  "answer": 2
-},
-{
-  "category": "Monitoring",
-  "question": "Which metric type only increases?",
-  "options": ["Gauge", "Histogram", "Counter", "Summary"],
-  "answer": 2
-},
-{
-  "category": "Networking",
-  "question": "Which port is used by HTTPS?",
-  "options": ["21", "22", "80", "443"],
-  "answer": 3
-},
-{
-  "category": "AWS",
-  "question": "Which AWS service enables VPC traffic filtering?",
-  "options": ["Security Groups", "NACLs", "Route Tables", "IGW"],
-  "answer": 0
-}
-,
-{
-  "category": "AWS",
-  "question": "Which AWS service provides a managed NoSQL key-value database?",
-  "options": ["RDS", "Aurora", "DynamoDB", "Redshift"],
-  "answer": 2
-},
-{
-  "category": "Docker",
-  "question": "Which Docker command runs a container in detached mode?",
-  "options": ["docker run -d", "docker start", "docker exec", "docker attach"],
-  "answer": 0
-},
-{
-  "category": "Kubernetes",
-  "question": "Which Kubernetes object is used for batch jobs?",
-  "options": ["Deployment", "Job", "DaemonSet", "StatefulSet"],
-  "answer": 1
-},
-{
-  "category": "Linux",
-  "question": "Which command shows the current working directory?",
-  "options": ["pwd", "whoami", "ls", "cd"],
-  "answer": 0
-},
-{
-  "category": "CI/CD",
-  "question": "Which practice ensures code is always in a deployable state?",
-  "options": [
-    "Continuous Delivery",
-    "Continuous Integration",
-    "Manual testing",
-    "Feature branching"
-  ],
-  "answer": 1
-},
-
-{
-  "category": "Terraform",
-  "question": "Which block defines a provider configuration in Terraform?",
-  "options": ["resource", "provider", "module", "backend"],
-  "answer": 1
-},
-{
-  "category": "AWS",
-  "question": "Which AWS service automatically scales EC2 capacity?",
-  "options": ["ELB", "Auto Scaling", "CloudWatch", "Elastic Beanstalk"],
-  "answer": 1
-},
-{
-  "category": "Docker",
-  "question": "Which file is used to define multi-container applications?",
-  "options": ["Dockerfile", "docker-compose.yml", "container.json", "compose.json"],
-  "answer": 1
-},
-{
-  "category": "Kubernetes",
-  "question": "Which Kubernetes resource defines network access to Pods?",
-  "options": ["Service", "Ingress", "NetworkPolicy", "Endpoint"],
-  "answer": 2
-},
-{
-  "category": "Linux",
-  "question": "Which command displays system uptime?",
-  "options": ["uptime", "top", "who", "time"],
-  "answer": 0
-},
-
-{
-  "category": "Git",
-  "question": "Which command permanently removes a local branch?",
-  "options": ["git branch -d", "git delete", "git reset", "git clean"],
-  "answer": 0
-},
-{
-  "category": "Security",
-  "question": "Which AWS service manages encryption keys?",
-  "options": ["IAM", "KMS", "Secrets Manager", "CloudHSM"],
-  "answer": 1
-},
-{
-  "category": "Monitoring",
-  "question": "Which Prometheus exporter collects node-level metrics?",
-  "options": ["kube-state-metrics", "node-exporter", "alertmanager", "pushgateway"],
-  "answer": 1
-},
-{
-  "category": "Networking",
-  "question": "Which protocol is used to resolve IP addresses?",
-  "options": ["HTTP", "ARP", "DNS", "ICMP"],
-  "answer": 1
-},
-{
-  "category": "AWS",
-  "question": "Which AWS service records API activity for auditing?",
-  "options": ["CloudWatch", "CloudTrail", "Config", "Inspector"],
-  "answer": 1
-},
-
-{
-  "category": "Docker",
-  "question": "Which instruction is used to expose ports in Dockerfile?",
-  "options": ["PORT", "PUBLISH", "EXPOSE", "LISTEN"],
-  "answer": 2
-},
-{
-  "category": "Kubernetes",
-  "question": "Which Kubernetes object stores sensitive information?",
-  "options": ["ConfigMap", "Secret", "Volume", "Namespace"],
-  "answer": 1
-},
-{
-  "category": "Linux",
-  "question": "Which command schedules recurring jobs?",
-  "options": ["at", "cron", "crontab", "watch"],
-  "answer": 2
-},
-{
-  "category": "CI/CD",
-  "question": "Which practice allows automated deployment to production?",
-  "options": [
-    "Continuous Integration",
-    "Continuous Testing",
-    "Continuous Deployment",
-    "Manual Approval"
-  ],
-  "answer": 2
-},
-{
-  "category": "Terraform",
-  "question": "Which command formats Terraform configuration files?",
-  "options": ["terraform fmt", "terraform validate", "terraform init", "terraform plan"],
-  "answer": 0
-},
-
-{
-  "category": "AWS",
-  "question": "Which AWS service provides a content delivery network (CDN)?",
-  "options": ["Route53", "CloudFront", "API Gateway", "Global Accelerator"],
-  "answer": 1
-},
-{
-  "category": "Docker",
-  "question": "Which command shows Docker daemon information?",
-  "options": ["docker stats", "docker info", "docker system", "docker version"],
-  "answer": 1
-},
-{
-  "category": "Kubernetes",
-  "question": "Which command displays cluster information?",
-  "options": ["kubectl describe cluster", "kubectl cluster-info", "kubectl get nodes", "kubectl info"],
-  "answer": 1
-},
-{
-  "category": "Linux",
-  "question": "Which command displays logged-in users?",
-  "options": ["users", "whoami", "groups", "login"],
-  "answer": 0
-},
-{
-  "category": "Git",
-  "question": "Which command undoes the last commit but keeps changes staged?",
-  "options": ["git revert", "git reset --soft HEAD~1", "git reset --hard", "git checkout"],
-  "answer": 1
-},
-
-{
-  "category": "Security",
-  "question": "Which concept verifies identity before granting access?",
-  "options": ["Authorization", "Authentication", "Auditing", "Accounting"],
-  "answer": 1
-},
-{
-  "category": "Monitoring",
-  "question": "Which Grafana feature groups multiple panels?",
-  "options": ["Folder", "Row", "Dashboard", "Variable"],
-  "answer": 1
-},
-{
-  "category": "Networking",
-  "question": "Which protocol is used for secure remote login?",
-  "options": ["Telnet", "RDP", "SSH", "FTP"],
-  "answer": 2
-},
-{
-  "category": "AWS",
-  "question": "Which AWS service allows event-driven workflows?",
-  "options": ["Step Functions", "SNS", "SQS", "EventBridge"],
-  "answer": 3
-},
-{
-  "category": "Terraform",
-  "question": "Which Terraform feature enables reusable infrastructure?",
-  "options": ["Variables", "Providers", "Modules", "Backends"],
-  "answer": 2
-}
-,
-{
-  "category": "AWS",
-  "question": "Which AWS service is used to decouple microservices?",
-  "options": ["SNS", "SQS", "EventBridge", "Step Functions"],
-  "answer": 1
-},
-{
-  "category": "Docker",
-  "question": "Which Docker command stops a running container?",
-  "options": ["docker kill", "docker stop", "docker pause", "docker rm"],
-  "answer": 1
-},
-{
-  "category": "Kubernetes",
-  "question": "Which Kubernetes resource ensures Pod autoscaling?",
-  "options": ["Deployment", "HPA", "VPA", "ReplicaSet"],
-  "answer": 1
-},
-{
-  "category": "Linux",
-  "question": "Which command shows CPU architecture details?",
-  "options": ["arch", "uname -m", "lscpu", "hostname"],
-  "answer": 2
-},
-{
-  "category": "CI/CD",
-  "question": "Which practice reduces deployment risk?",
-  "options": ["Blue-green deployment", "Big bang release", "Manual rollback", "Delayed testing"],
-  "answer": 0
-},
-
-{
-  "category": "Terraform",
-  "question": "Which Terraform command destroys infrastructure?",
-  "options": ["terraform delete", "terraform remove", "terraform destroy", "terraform clean"],
-  "answer": 2
-},
-{
-  "category": "AWS",
-  "question": "Which AWS service is used for API management?",
-  "options": ["ALB", "API Gateway", "CloudFront", "App Mesh"],
-  "answer": 1
-},
-{
-  "category": "Docker",
-  "question": "Which Dockerfile instruction sets environment variables?",
-  "options": ["ENV", "ARG", "RUN", "LABEL"],
-  "answer": 0
-},
-{
-  "category": "Kubernetes",
-  "question": "Which component handles network rules in Kubernetes?",
-  "options": ["kubelet", "kube-proxy", "etcd", "scheduler"],
-  "answer": 1
-},
-{
-  "category": "Linux",
-  "question": "Which command displays kernel version?",
-  "options": ["uname -r", "kernel", "lsmod", "dmesg"],
-  "answer": 0
-},
-
-{
-  "category": "Git",
-  "question": "Which command shows commit history?",
-  "options": ["git status", "git log", "git diff", "git show"],
-  "answer": 1
-},
-{
-  "category": "Security",
-  "question": "Which AWS service scans EC2 for vulnerabilities?",
-  "options": ["GuardDuty", "Inspector", "Shield", "WAF"],
-  "answer": 1
-},
-{
-  "category": "Monitoring",
-  "question": "Which Prometheus metric type represents instantaneous values?",
-  "options": ["Counter", "Gauge", "Histogram", "Summary"],
-  "answer": 1
-},
-{
-  "category": "Networking",
-  "question": "Which protocol tests network reachability?",
-  "options": ["ARP", "ICMP", "DNS", "SNMP"],
-  "answer": 1
-},
-{
-  "category": "AWS",
-  "question": "Which AWS service is used for centralized configuration compliance?",
-  "options": ["CloudTrail", "Config", "Inspector", "Trusted Advisor"],
-  "answer": 1
-},
-
-{
-  "category": "Docker",
-  "question": "Which command shows container resource usage?",
-  "options": ["docker top", "docker stats", "docker ps", "docker inspect"],
-  "answer": 1
-},
-{
-  "category": "Kubernetes",
-  "question": "Which resource defines persistent storage?",
-  "options": ["ConfigMap", "Secret", "PersistentVolume", "StatefulSet"],
-  "answer": 2
-},
-{
-  "category": "Linux",
-  "question": "Which command searches text in files?",
-  "options": ["find", "grep", "awk", "sed"],
-  "answer": 1
-},
-{
-  "category": "CI/CD",
-  "question": "Which strategy deploys code to a subset of users?",
-  "options": ["Canary deployment", "Rolling update", "Blue-green", "Recreate"],
-  "answer": 0
-},
-{
-  "category": "Terraform",
-  "question": "Which block defines input variables?",
-  "options": ["output", "provider", "variable", "resource"],
-  "answer": 2
-},
-
-{
-  "category": "AWS",
-  "question": "Which AWS service enables hybrid DNS resolution?",
-  "options": ["Route 53", "CloudFront", "Global Accelerator", "ELB"],
-  "answer": 0
-},
-{
-  "category": "Docker",
-  "question": "Which command removes a Docker image?",
-  "options": ["docker delete", "docker rm", "docker rmi", "docker purge"],
-  "answer": 2
-},
-{
-  "category": "Kubernetes",
-  "question": "Which object manages Stateful applications?",
-  "options": ["Deployment", "ReplicaSet", "StatefulSet", "DaemonSet"],
-  "answer": 2
-},
-{
-  "category": "Linux",
-  "question": "Which command lists open files?",
-  "options": ["ls", "lsof", "fuser", "stat"],
-  "answer": 1
-},
-{
-  "category": "Git",
-  "question": "Which command temporarily saves uncommitted changes?",
-  "options": ["git stash", "git reset", "git commit", "git revert"],
-  "answer": 0
-},
-
-{
-  "category": "Security",
-  "question": "Which model assumes no implicit trust?",
-  "options": ["Least privilege", "Zero Trust", "Defense in depth", "RBAC"],
-  "answer": 1
-},
-{
-  "category": "Monitoring",
-  "question": "Which Grafana feature enables dynamic dashboards?",
-  "options": ["Panels", "Variables", "Alerts", "Annotations"],
-  "answer": 1
-},
-{
-  "category": "Networking",
-  "question": "Which protocol is used for time synchronization?",
-  "options": ["SNMP", "NTP", "SMTP", "FTP"],
-  "answer": 1
-},
-{
-  "category": "AWS",
-  "question": "Which AWS service is used for workflow orchestration?",
-  "options": ["Step Functions", "SNS", "SQS", "Lambda"],
-  "answer": 0
-},
-{
-  "category": "Terraform",
-  "question": "Which backend stores Terraform state remotely?",
-  "options": ["local", "s3", "null", "file"],
-  "answer": 1
-},
-
-{
-  "category": "AWS",
-  "question": "Which AWS service provides managed message queues?",
-  "options": ["SNS", "SQS", "EventBridge", "MQ"],
-  "answer": 1
-},
-{
-  "category": "Docker",
-  "question": "Which flag automatically removes a container after exit?",
-  "options": ["--rm", "-d", "-it", "--force"],
-  "answer": 0
-},
-{
-  "category": "Kubernetes",
-  "question": "Which object defines ingress traffic routing rules?",
-  "options": ["Service", "Ingress", "Endpoint", "Route"],
-  "answer": 1
-},
-{
-  "category": "Linux",
-  "question": "Which command shows disk I/O statistics?",
-  "options": ["iostat", "vmstat", "free", "uptime"],
-  "answer": 0
-},
-{
-  "category": "CI/CD",
-  "question": "Which concept enables faster feedback cycles?",
-  "options": ["Shift-left testing", "Manual approvals", "Delayed builds", "Monolithic pipelines"],
-  "answer": 0
-},
-
-{
-  "category": "Security",
-  "question": "Which AWS service provides web application firewall?",
-  "options": ["Shield", "Inspector", "WAF", "GuardDuty"],
-  "answer": 2
-},
-{
-  "category": "Monitoring",
-  "question": "Which Prometheus component allows pushing metrics?",
-  "options": ["Exporter", "Pushgateway", "Alertmanager", "TSDB"],
-  "answer": 1
-},
-{
-  "category": "Networking",
-  "question": "Which OSI layer handles routing?",
-  "options": ["Layer 2", "Layer 3", "Layer 4", "Layer 7"],
-  "answer": 1
-},
-{
-  "category": "AWS",
-  "question": "Which AWS service enables serverless workflows?",
-  "options": ["Lambda", "Step Functions", "EventBridge", "All of the above"],
-  "answer": 3
-},
-{
-  "category": "Linux",
-  "question": "Which command monitors real-time process activity?",
-  "options": ["top", "ps", "free", "watch"],
-  "answer": 0
-}
+    {
+        "category": "AWS",
+        "question": "Which AWS service allows you to run code without provisioning servers?",
+        "options": [
+            "AWS Lambda",
+            "EC2",
+            "Elastic Beanstalk",
+            "Lightsail"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "Docker",
+        "question": "Which Docker command builds an image from a Dockerfile?",
+        "options": [
+            "docker run",
+            "docker build",
+            "docker pull",
+            "docker exec"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Kubernetes",
+        "question": "Which Kubernetes object manages stateless application replicas?",
+        "options": [
+            "StatefulSet",
+            "DaemonSet",
+            "Deployment",
+            "Job"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "Linux",
+        "question": "Which command displays disk usage in human-readable format?",
+        "options": [
+            "du",
+            "mount",
+            "lsblk",
+            "df -h"
+        ],
+        "answer": 3
+    },
+    {
+        "category": "CI/CD",
+        "question": "What is the main goal of Continuous Integration?",
+        "options": [
+            "Deploy code to production",
+            "Merge code frequently",
+            "Provision infrastructure",
+            "Monitor applications"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "AWS",
+        "question": "Which AWS service provides managed Kubernetes?",
+        "options": [
+            "ECS",
+            "EKS",
+            "Fargate",
+            "EC2"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Docker",
+        "question": "What is the purpose of a Docker volume?",
+        "options": [
+            "Improve container startup time",
+            "Persist container data",
+            "Increase image size",
+            "Expose container ports"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Kubernetes",
+        "question": "Which component stores Kubernetes cluster state?",
+        "options": [
+            "kubelet",
+            "kube-proxy",
+            "etcd",
+            "controller-manager"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "Linux",
+        "question": "Which file stores user account information?",
+        "options": [
+            "/etc/group",
+            "/etc/shadow",
+            "/etc/passwd",
+            "/etc/profile"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "Terraform",
+        "question": "What does `terraform plan` do?",
+        "options": [
+            "Applies infrastructure changes",
+            "Initializes providers",
+            "Shows execution plan",
+            "Destroys resources"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "AWS",
+        "question": "Which AWS service is used for centralized logging?",
+        "options": [
+            "CloudTrail",
+            "CloudWatch",
+            "X-Ray",
+            "Config"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Docker",
+        "question": "Which Dockerfile instruction specifies the base image?",
+        "options": [
+            "RUN",
+            "FROM",
+            "CMD",
+            "ENTRYPOINT"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Kubernetes",
+        "question": "Which object exposes services externally via HTTP?",
+        "options": [
+            "Service",
+            "Ingress",
+            "Pod",
+            "ConfigMap"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Linux",
+        "question": "Which command changes file ownership?",
+        "options": [
+            "chmod",
+            "usermod",
+            "chown",
+            "passwd"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "CI/CD",
+        "question": "Which tool is commonly used for CI pipelines?",
+        "options": [
+            "Terraform",
+            "Ansible",
+            "Jenkins",
+            "Prometheus"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "AWS",
+        "question": "Which AWS service protects against DDoS attacks?",
+        "options": [
+            "WAF",
+            "Shield",
+            "GuardDuty",
+            "Inspector"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Networking",
+        "question": "Which protocol secures HTTP traffic?",
+        "options": [
+            "FTP",
+            "SMTP",
+            "TLS",
+            "SNMP"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "Security",
+        "question": "What principle grants only required permissions?",
+        "options": [
+            "Zero Trust",
+            "Least privilege",
+            "Defense in depth",
+            "RBAC"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Monitoring",
+        "question": "Which tool is commonly used with Prometheus for visualization?",
+        "options": [
+            "Kibana",
+            "Grafana",
+            "Datadog",
+            "Nagios"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Git",
+        "question": "Which command creates a new Git branch?",
+        "options": [
+            "git pull",
+            "git branch",
+            "git merge",
+            "git rebase"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "AWS",
+        "question": "Which AWS service provides object storage?",
+        "options": [
+            "EBS",
+            "S3",
+            "EFS",
+            "FSx"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Docker",
+        "question": "Which Docker command lists running containers?",
+        "options": [
+            "docker ps",
+            "docker images",
+            "docker run",
+            "docker inspect"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "Kubernetes",
+        "question": "Which Kubernetes object runs a Pod on every node?",
+        "options": [
+            "Deployment",
+            "StatefulSet",
+            "DaemonSet",
+            "ReplicaSet"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "Linux",
+        "question": "Which command shows running processes?",
+        "options": [
+            "ps",
+            "df",
+            "uptime",
+            "free"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "CI/CD",
+        "question": "Which stage typically runs unit tests?",
+        "options": [
+            "Build",
+            "Test",
+            "Deploy",
+            "Release"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Terraform",
+        "question": "Which file stores Terraform state by default?",
+        "options": [
+            "terraform.tfvars",
+            "backend.tf",
+            "terraform.state",
+            "terraform.tfstate"
+        ],
+        "answer": 3
+    },
+    {
+        "category": "AWS",
+        "question": "Which AWS service is used for secrets management?",
+        "options": [
+            "Parameter Store",
+            "Secrets Manager",
+            "KMS",
+            "IAM"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Docker",
+        "question": "Which network driver allows containers to communicate on the same host?",
+        "options": [
+            "overlay",
+            "bridge",
+            "macvlan",
+            "none"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Kubernetes",
+        "question": "Which kubectl command shows Pod logs?",
+        "options": [
+            "kubectl get logs",
+            "kubectl describe pod",
+            "kubectl logs",
+            "kubectl exec"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "Linux",
+        "question": "Which command displays memory usage?",
+        "options": [
+            "top",
+            "df",
+            "free",
+            "lsblk"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "AWS",
+        "question": "Which AWS service enables infrastructure as code?",
+        "options": [
+            "CloudFormation",
+            "CodeDeploy",
+            "Elastic Beanstalk",
+            "OpsWorks"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "Git",
+        "question": "Which command stages files for commit?",
+        "options": [
+            "git add",
+            "git commit",
+            "git push",
+            "git merge"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "Security",
+        "question": "Which AWS service detects malicious activity?",
+        "options": [
+            "Inspector",
+            "GuardDuty",
+            "Shield",
+            "WAF"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Monitoring",
+        "question": "Which Prometheus component triggers alerts?",
+        "options": [
+            "Exporter",
+            "Alertmanager",
+            "Grafana",
+            "Node exporter"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Networking",
+        "question": "Which CIDR block represents a /24 network?",
+        "options": [
+            "255.255.255.0",
+            "255.255.0.0",
+            "255.0.0.0",
+            "255.255.255.255"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "AWS",
+        "question": "Which AWS service provides managed container orchestration?",
+        "options": [
+            "ECS",
+            "EKS",
+            "Fargate",
+            "All of the above"
+        ],
+        "answer": 3
+    },
+    {
+        "category": "Docker",
+        "question": "Which instruction defines default container command?",
+        "options": [
+            "CMD",
+            "RUN",
+            "FROM",
+            "ENV"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "Kubernetes",
+        "question": "Which object stores non-sensitive configuration?",
+        "options": [
+            "Secret",
+            "ConfigMap",
+            "Volume",
+            "Namespace"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Linux",
+        "question": "Which command changes file permissions?",
+        "options": [
+            "chown",
+            "chmod",
+            "usermod",
+            "passwd"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "CI/CD",
+        "question": "Which CI/CD principle reduces integration issues?",
+        "options": [
+            "Long-lived branches",
+            "Frequent commits",
+            "Manual testing",
+            "Delayed merges"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Terraform",
+        "question": "Which command initializes a Terraform project?",
+        "options": [
+            "terraform plan",
+            "terraform apply",
+            "terraform init",
+            "terraform validate"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "AWS",
+        "question": "Which AWS service provides managed relational databases?",
+        "options": [
+            "DynamoDB",
+            "RDS",
+            "Aurora Serverless",
+            "S3"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Docker",
+        "question": "Which command removes unused Docker objects?",
+        "options": [
+            "docker rm",
+            "docker prune",
+            "docker clean",
+            "docker delete"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Kubernetes",
+        "question": "Which component runs on every Kubernetes node?",
+        "options": [
+            "kube-apiserver",
+            "etcd",
+            "kubelet",
+            "controller-manager"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "Linux",
+        "question": "Which command displays open network ports?",
+        "options": [
+            "ifconfig",
+            "netstat",
+            "ls",
+            "who"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Git",
+        "question": "Which command downloads changes without merging?",
+        "options": [
+            "git fetch",
+            "git pull",
+            "git clone",
+            "git push"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "Security",
+        "question": "Which protocol encrypts data in transit?",
+        "options": [
+            "HTTP",
+            "FTP",
+            "TLS",
+            "SNMP"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "Monitoring",
+        "question": "Which metric type only increases?",
+        "options": [
+            "Gauge",
+            "Histogram",
+            "Counter",
+            "Summary"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "Networking",
+        "question": "Which port is used by HTTPS?",
+        "options": [
+            "21",
+            "22",
+            "80",
+            "443"
+        ],
+        "answer": 3
+    },
+    {
+        "category": "AWS",
+        "question": "Which AWS service enables VPC traffic filtering?",
+        "options": [
+            "Security Groups",
+            "NACLs",
+            "Route Tables",
+            "IGW"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "AWS",
+        "question": "Which AWS service provides a managed NoSQL key-value database?",
+        "options": [
+            "RDS",
+            "Aurora",
+            "DynamoDB",
+            "Redshift"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "Docker",
+        "question": "Which Docker command runs a container in detached mode?",
+        "options": [
+            "docker run -d",
+            "docker start",
+            "docker exec",
+            "docker attach"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "Kubernetes",
+        "question": "Which Kubernetes object is used for batch jobs?",
+        "options": [
+            "Deployment",
+            "Job",
+            "DaemonSet",
+            "StatefulSet"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Linux",
+        "question": "Which command shows the current working directory?",
+        "options": [
+            "pwd",
+            "whoami",
+            "ls",
+            "cd"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "CI/CD",
+        "question": "Which practice ensures code is always in a deployable state?",
+        "options": [
+            "Continuous Delivery",
+            "Continuous Integration",
+            "Manual testing",
+            "Feature branching"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Terraform",
+        "question": "Which block defines a provider configuration in Terraform?",
+        "options": [
+            "resource",
+            "provider",
+            "module",
+            "backend"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "AWS",
+        "question": "Which AWS service automatically scales EC2 capacity?",
+        "options": [
+            "ELB",
+            "Auto Scaling",
+            "CloudWatch",
+            "Elastic Beanstalk"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Docker",
+        "question": "Which file is used to define multi-container applications?",
+        "options": [
+            "Dockerfile",
+            "docker-compose.yml",
+            "container.json",
+            "compose.json"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Kubernetes",
+        "question": "Which Kubernetes resource defines network access to Pods?",
+        "options": [
+            "Service",
+            "Ingress",
+            "NetworkPolicy",
+            "Endpoint"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "Linux",
+        "question": "Which command displays system uptime?",
+        "options": [
+            "uptime",
+            "top",
+            "who",
+            "time"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "Git",
+        "question": "Which command permanently removes a local branch?",
+        "options": [
+            "git branch -d",
+            "git delete",
+            "git reset",
+            "git clean"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "Security",
+        "question": "Which AWS service manages encryption keys?",
+        "options": [
+            "IAM",
+            "KMS",
+            "Secrets Manager",
+            "CloudHSM"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Monitoring",
+        "question": "Which Prometheus exporter collects node-level metrics?",
+        "options": [
+            "kube-state-metrics",
+            "node-exporter",
+            "alertmanager",
+            "pushgateway"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Networking",
+        "question": "Which protocol is used to resolve IP addresses?",
+        "options": [
+            "HTTP",
+            "ARP",
+            "DNS",
+            "ICMP"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "AWS",
+        "question": "Which AWS service records API activity for auditing?",
+        "options": [
+            "CloudWatch",
+            "CloudTrail",
+            "Config",
+            "Inspector"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Docker",
+        "question": "Which instruction is used to expose ports in Dockerfile?",
+        "options": [
+            "PORT",
+            "PUBLISH",
+            "EXPOSE",
+            "LISTEN"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "Kubernetes",
+        "question": "Which Kubernetes object stores sensitive information?",
+        "options": [
+            "ConfigMap",
+            "Secret",
+            "Volume",
+            "Namespace"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Linux",
+        "question": "Which command schedules recurring jobs?",
+        "options": [
+            "at",
+            "cron",
+            "crontab",
+            "watch"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "CI/CD",
+        "question": "Which practice allows automated deployment to production?",
+        "options": [
+            "Continuous Integration",
+            "Continuous Testing",
+            "Continuous Deployment",
+            "Manual Approval"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "Terraform",
+        "question": "Which command formats Terraform configuration files?",
+        "options": [
+            "terraform fmt",
+            "terraform validate",
+            "terraform init",
+            "terraform plan"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "AWS",
+        "question": "Which AWS service provides a content delivery network (CDN)?",
+        "options": [
+            "Route53",
+            "CloudFront",
+            "API Gateway",
+            "Global Accelerator"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Docker",
+        "question": "Which command shows Docker daemon information?",
+        "options": [
+            "docker stats",
+            "docker info",
+            "docker system",
+            "docker version"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Kubernetes",
+        "question": "Which command displays cluster information?",
+        "options": [
+            "kubectl describe cluster",
+            "kubectl cluster-info",
+            "kubectl get nodes",
+            "kubectl info"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Linux",
+        "question": "Which command displays logged-in users?",
+        "options": [
+            "users",
+            "whoami",
+            "groups",
+            "login"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "Git",
+        "question": "Which command undoes the last commit but keeps changes staged?",
+        "options": [
+            "git revert",
+            "git reset --soft HEAD~1",
+            "git reset --hard",
+            "git checkout"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Security",
+        "question": "Which concept verifies identity before granting access?",
+        "options": [
+            "Authorization",
+            "Authentication",
+            "Auditing",
+            "Accounting"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Monitoring",
+        "question": "Which Grafana feature groups multiple panels?",
+        "options": [
+            "Folder",
+            "Row",
+            "Dashboard",
+            "Variable"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Networking",
+        "question": "Which protocol is used for secure remote login?",
+        "options": [
+            "Telnet",
+            "RDP",
+            "SSH",
+            "FTP"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "AWS",
+        "question": "Which AWS service allows event-driven workflows?",
+        "options": [
+            "Step Functions",
+            "SNS",
+            "SQS",
+            "EventBridge"
+        ],
+        "answer": 3
+    },
+    {
+        "category": "Terraform",
+        "question": "Which Terraform feature enables reusable infrastructure?",
+        "options": [
+            "Variables",
+            "Providers",
+            "Modules",
+            "Backends"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "AWS",
+        "question": "Which AWS service is used to decouple microservices?",
+        "options": [
+            "SNS",
+            "SQS",
+            "EventBridge",
+            "Step Functions"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Docker",
+        "question": "Which Docker command stops a running container?",
+        "options": [
+            "docker kill",
+            "docker stop",
+            "docker pause",
+            "docker rm"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Kubernetes",
+        "question": "Which Kubernetes resource ensures Pod autoscaling?",
+        "options": [
+            "Deployment",
+            "HPA",
+            "VPA",
+            "ReplicaSet"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Linux",
+        "question": "Which command shows CPU architecture details?",
+        "options": [
+            "arch",
+            "uname -m",
+            "lscpu",
+            "hostname"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "CI/CD",
+        "question": "Which practice reduces deployment risk?",
+        "options": [
+            "Blue-green deployment",
+            "Big bang release",
+            "Manual rollback",
+            "Delayed testing"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "Terraform",
+        "question": "Which Terraform command destroys infrastructure?",
+        "options": [
+            "terraform delete",
+            "terraform remove",
+            "terraform destroy",
+            "terraform clean"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "AWS",
+        "question": "Which AWS service is used for API management?",
+        "options": [
+            "ALB",
+            "API Gateway",
+            "CloudFront",
+            "App Mesh"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Docker",
+        "question": "Which Dockerfile instruction sets environment variables?",
+        "options": [
+            "ENV",
+            "ARG",
+            "RUN",
+            "LABEL"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "Kubernetes",
+        "question": "Which component handles network rules in Kubernetes?",
+        "options": [
+            "kubelet",
+            "kube-proxy",
+            "etcd",
+            "scheduler"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Linux",
+        "question": "Which command displays kernel version?",
+        "options": [
+            "uname -r",
+            "kernel",
+            "lsmod",
+            "dmesg"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "Git",
+        "question": "Which command shows commit history?",
+        "options": [
+            "git status",
+            "git log",
+            "git diff",
+            "git show"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Security",
+        "question": "Which AWS service scans EC2 for vulnerabilities?",
+        "options": [
+            "GuardDuty",
+            "Inspector",
+            "Shield",
+            "WAF"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Monitoring",
+        "question": "Which Prometheus metric type represents instantaneous values?",
+        "options": [
+            "Counter",
+            "Gauge",
+            "Histogram",
+            "Summary"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Networking",
+        "question": "Which protocol tests network reachability?",
+        "options": [
+            "ARP",
+            "ICMP",
+            "DNS",
+            "SNMP"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "AWS",
+        "question": "Which AWS service is used for centralized configuration compliance?",
+        "options": [
+            "CloudTrail",
+            "Config",
+            "Inspector",
+            "Trusted Advisor"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Docker",
+        "question": "Which command shows container resource usage?",
+        "options": [
+            "docker top",
+            "docker stats",
+            "docker ps",
+            "docker inspect"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Kubernetes",
+        "question": "Which resource defines persistent storage?",
+        "options": [
+            "ConfigMap",
+            "Secret",
+            "PersistentVolume",
+            "StatefulSet"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "Linux",
+        "question": "Which command searches text in files?",
+        "options": [
+            "find",
+            "grep",
+            "awk",
+            "sed"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "CI/CD",
+        "question": "Which strategy deploys code to a subset of users?",
+        "options": [
+            "Canary deployment",
+            "Rolling update",
+            "Blue-green",
+            "Recreate"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "Terraform",
+        "question": "Which block defines input variables?",
+        "options": [
+            "output",
+            "provider",
+            "variable",
+            "resource"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "AWS",
+        "question": "Which AWS service enables hybrid DNS resolution?",
+        "options": [
+            "Route 53",
+            "CloudFront",
+            "Global Accelerator",
+            "ELB"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "Docker",
+        "question": "Which command removes a Docker image?",
+        "options": [
+            "docker delete",
+            "docker rm",
+            "docker rmi",
+            "docker purge"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "Kubernetes",
+        "question": "Which object manages Stateful applications?",
+        "options": [
+            "Deployment",
+            "ReplicaSet",
+            "StatefulSet",
+            "DaemonSet"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "Linux",
+        "question": "Which command lists open files?",
+        "options": [
+            "ls",
+            "lsof",
+            "fuser",
+            "stat"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Git",
+        "question": "Which command temporarily saves uncommitted changes?",
+        "options": [
+            "git stash",
+            "git reset",
+            "git commit",
+            "git revert"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "Security",
+        "question": "Which model assumes no implicit trust?",
+        "options": [
+            "Least privilege",
+            "Zero Trust",
+            "Defense in depth",
+            "RBAC"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Monitoring",
+        "question": "Which Grafana feature enables dynamic dashboards?",
+        "options": [
+            "Panels",
+            "Variables",
+            "Alerts",
+            "Annotations"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Networking",
+        "question": "Which protocol is used for time synchronization?",
+        "options": [
+            "SNMP",
+            "NTP",
+            "SMTP",
+            "FTP"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "AWS",
+        "question": "Which AWS service is used for workflow orchestration?",
+        "options": [
+            "Step Functions",
+            "SNS",
+            "SQS",
+            "Lambda"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "Terraform",
+        "question": "Which backend stores Terraform state remotely?",
+        "options": [
+            "local",
+            "s3",
+            "null",
+            "file"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "AWS",
+        "question": "Which AWS service provides managed message queues?",
+        "options": [
+            "SNS",
+            "SQS",
+            "EventBridge",
+            "MQ"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Docker",
+        "question": "Which flag automatically removes a container after exit?",
+        "options": [
+            "--rm",
+            "-d",
+            "-it",
+            "--force"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "Kubernetes",
+        "question": "Which object defines ingress traffic routing rules?",
+        "options": [
+            "Service",
+            "Ingress",
+            "Endpoint",
+            "Route"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Linux",
+        "question": "Which command shows disk I/O statistics?",
+        "options": [
+            "iostat",
+            "vmstat",
+            "free",
+            "uptime"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "CI/CD",
+        "question": "Which concept enables faster feedback cycles?",
+        "options": [
+            "Shift-left testing",
+            "Manual approvals",
+            "Delayed builds",
+            "Monolithic pipelines"
+        ],
+        "answer": 0
+    },
+    {
+        "category": "Security",
+        "question": "Which AWS service provides web application firewall?",
+        "options": [
+            "Shield",
+            "Inspector",
+            "WAF",
+            "GuardDuty"
+        ],
+        "answer": 2
+    },
+    {
+        "category": "Monitoring",
+        "question": "Which Prometheus component allows pushing metrics?",
+        "options": [
+            "Exporter",
+            "Pushgateway",
+            "Alertmanager",
+            "TSDB"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "Networking",
+        "question": "Which OSI layer handles routing?",
+        "options": [
+            "Layer 2",
+            "Layer 3",
+            "Layer 4",
+            "Layer 7"
+        ],
+        "answer": 1
+    },
+    {
+        "category": "AWS",
+        "question": "Which AWS service enables serverless workflows?",
+        "options": [
+            "Lambda",
+            "Step Functions",
+            "EventBridge",
+            "All of the above"
+        ],
+        "answer": 3
+    },
+    {
+        "category": "Linux",
+        "question": "Which command monitors real-time process activity?",
+        "options": [
+            "top",
+            "ps",
+            "free",
+            "watch"
+        ],
+        "answer": 0
+    }
 ]
