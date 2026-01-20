@@ -1,9 +1,9 @@
 const QUESTIONS_URL =
-  "https://cdn.jsdelivr.net/gh/yousafkhamza/devops-mcq-assets@main/public/questions.json?v=0.0.3";
+  "https://cdn.jsdelivr.net/gh/yousafkhamza/devops-mcq-assets@main/public/questions.json?v=0.0.4";
 
 const QUESTION_TIME = 120;
 const NEGATIVE_MARK = 0.25;
-const MAX_ATTEMPTS = 3;
+const MAX_ATTEMPTS = 5;
 
 let selectedQuestionCount = 0;
 let questions = [];
