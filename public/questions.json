@@ -391,7 +391,7 @@
             "ECS",
             "EKS",
             "Fargate",
-            "All of the above"
+            "All of the options"
         ],
         "answer": 3
     },
@@ -1304,7 +1304,7 @@
             "Lambda",
             "Step Functions",
             "EventBridge",
-            "All of the above"
+            "All of the options"
         ],
         "answer": 3
     },
